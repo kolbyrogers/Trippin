@@ -7,13 +7,11 @@
         </v-btn>
       </v-col>
     </v-row>
-    <v-row justify="center">
-      <v-tabs>
-        <v-tabs-slider color="primary"></v-tabs-slider>
-        <v-tab>My Trips</v-tab>
-        <v-tab>Shared With Me</v-tab>
-      </v-tabs>
-    </v-row>
+    <v-tabs centered class="pb-4">
+      <v-tabs-slider color="primary"></v-tabs-slider>
+      <v-tab>My Trips</v-tab>
+      <v-tab>Shared With Me</v-tab>
+    </v-tabs>
     <v-row>
       <h1 class="trip-header">Current Trips</h1>
     </v-row>
