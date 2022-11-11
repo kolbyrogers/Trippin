@@ -2,10 +2,11 @@ package handlers
 
 import (
 	"github.com/gorilla/mux"
+	"github.com/kolbyrogers/Trippin/backend/pkg/trips"
 	"github.com/kolbyrogers/Trippin/backend/pkg/users"
 )
 
-func InitializeHandlers(usersService users.Service) *mux.Router { // add this in a second r reading.Service, w writing.Service
+func InitializeHandlers(usersService users.Service, tripsService trips.Service) *mux.Router { // add this in a second r reading.Service, w writing.Service
 
 	// tempuser := users.User{
 	// 	ID:        "1",
@@ -25,6 +26,10 @@ func InitializeHandlers(usersService users.Service) *mux.Router { // add this in
 
 	router.HandleFunc("/api/users/{UserId}", getUserHandler(usersService)).Methods("GET")
 	router.HandleFunc("/api/users", addUserHandler(usersService)).Methods("POST")
+
+	// Trips ----------------------------------------------------------------
+	router.HandleFunc("/api/trips/{UserId}", getTripHandler(tripsService)).Methods("GET")
+	router.HandleFunc("/api/trips", addTripHandler(tripsService)).Methods("POST")
 
 	return router
 }
