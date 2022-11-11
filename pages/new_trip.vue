@@ -112,11 +112,6 @@ export default {
         .substr(0, 10),
     }
   },
-  computed: {
-    computedDateFormatted() {
-      return this.date
-    },
-  },
   methods: {
     goBack() {
       this.$router.go(-1)
