@@ -43,7 +43,7 @@ export default {
   methods: {
     directToNewEvent() {},
     directToShare() {
-      this.$router.push('/trips/' + this.id + '/share')
+      this.$router.push('/trips/' + this.$route.params.trips + '/share')
     },
     back() {
       this.$router.go(-1)
