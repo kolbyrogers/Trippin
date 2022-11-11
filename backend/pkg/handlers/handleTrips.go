@@ -47,11 +47,16 @@ func addTripHandler(tripsService trips.Service) func(w http.ResponseWriter, r *h
 			return
 		}
 		fmt.Println(newTrip)
-		_, err = tripsService.AddTrip(newTrip)
+
+		createdTrip, err := tripsService.AddTrip(newTrip)
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			json.NewEncoder(w).Encode(err)
 			return
 		}
+		w.Header().Set("Content-Type", "application/json")
+		enableCors(&w)
+		w.WriteHeader(http.StatusCreated)
+		json.NewEncoder(w).Encode(createdTrip)
 	}
 }

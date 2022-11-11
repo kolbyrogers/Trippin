@@ -58,7 +58,12 @@ func addEventHandler(eventsService events.Service) func(w http.ResponseWriter, r
 			return
 		}
 		w.Header().Set("Content-Type", "application/json")
+		enableCors(&w)
 		w.WriteHeader(http.StatusCreated)
 		json.NewEncoder(w).Encode(createdEvent)
 	}
+}
+
+func enableCors(w *http.ResponseWriter) {
+	(*w).Header().Set("Access-Control-Allow-Origin", "*")
 }

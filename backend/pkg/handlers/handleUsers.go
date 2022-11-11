@@ -59,6 +59,7 @@ func addUserHandler(usersService users.Service) func(w http.ResponseWriter, r *h
 			return
 		}
 		w.Header().Set("Content-Type", "application/json")
+		enableCors(&w)
 		w.WriteHeader(http.StatusCreated)
 	}
 }
