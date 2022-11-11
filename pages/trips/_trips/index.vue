@@ -16,7 +16,7 @@
       </v-col>
     </v-row>
     <h1>Trip Location</h1>
-    <v-row v-for="event in events" :key="event.id">
+    <v-row justify="center" v-for="event in events" :key="event.id">
       <Event :event="event"></Event>
     </v-row>
   </v-container>
@@ -35,6 +35,12 @@ export default {
           id: 12,
           name: 'Snorkeling',
           location: 'Coral Reef',
+          image: '/images/snorkel.jpg',
+        },
+        {
+          id: 21,
+          name: 'Hiking',
+          location: 'Mount Everest',
           image: '/images/snorkel.jpg',
         },
       ],
