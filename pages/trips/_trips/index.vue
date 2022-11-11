@@ -16,7 +16,7 @@
       </v-col>
     </v-row>
     <h1>Trip Location</h1>
-    <v-row v-for="event in events" :key="event.id">
+    <v-row justify="center" v-for="event in events" :key="event.id">
       <Event :event="event"></Event>
     </v-row>
   </v-container>
@@ -37,13 +37,21 @@ export default {
           location: 'Coral Reef',
           image: '/images/snorkel.jpg',
         },
+        {
+          id: 21,
+          name: 'Hiking',
+          location: 'Mount Everest',
+          image: '/images/snorkel.jpg',
+        },
       ],
     }
   },
   methods: {
-    directToNewEvent() {},
+    directToNewEvent() {
+      this.$router.push('/trips/' + this.$route.params.trips + '/events')
+    },
     directToShare() {
-      this.$router.push('/trips/' + this.id + '/share')
+      this.$router.push('/trips/' + this.$route.params.trips + '/share')
     },
     back() {
       this.$router.go(-1)
