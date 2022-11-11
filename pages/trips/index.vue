@@ -18,8 +18,7 @@
     <v-divider class="thicc"></v-divider>
     <div v-if="tripsPlanned">
       <v-row v-for="trip in trips" :key="trip.id">
-        <Trip @click="directToTrip(trip.id)" :image="trip.image" :location="trip.location" :date="trip.start_date">
-        </Trip>
+        <Trip :trip="trip"></Trip>
       </v-row>
     </div>
     <div v-else>
@@ -34,7 +33,7 @@
     <v-divider class="thicc"></v-divider>
     <div v-if="pastTripsFinished">
       <v-row fluid v-for="trip in past_trips" :key="trip.id">
-        <Trip :image="trip.image" :location="trip.location" :date="trip.start_date"></Trip>
+        <Trip :trip="trip"></Trip>
       </v-row>
     </div>
     <div v-else>
@@ -52,11 +51,13 @@ export default {
       sharedTrips: false,
       trips: [
         {
+          id: 123,
           location: "New York",
           start_date: "2020-01-01",
           image: "/images/snorkel.jpg"
         },
         {
+          id: 456,
           location: "Bali",
           start_date: "2022-01-01",
           image: "/images/snorkel.jpg"
@@ -73,6 +74,7 @@ export default {
       this.$router.push('/new_trip')
     },
     directToTrip(id) {
+      console.log("clicked trip", id);
       this.$router.push('/trips/' + id)
     },
   },
