@@ -7,9 +7,6 @@
     overflow: hidden;
     position: relative;
     background: linear-gradient(#69aaff, #fff);
-    background: -webkit-linear-gradient(top, #69aaff 0%, #fff 99%);
-    background: -linear-gradient(top, #69aaff 0%, #fff 99%);
-    background: -moz-linear-gradient(top, #69aaff 0%, #fff 99%);
     height: 350px;
 }
 
@@ -25,18 +22,12 @@
     top: 40px;
     left: 400px;
     animation: movingclouds 12s linear infinite;
-    -webkit-animation: movingclouds 12s linear infinite;
-    -moz-animation: movingclouds 12s linear infinite;
-    -o-animation: movingclouds 12s linear infinite;
 }
 
 #cloud2 {
     top: 10px;
     left: 600px;
     animation: movingclouds 13s linear infinite;
-    -webkit-animation: movingclouds 13s linear infinite;
-    -moz-animation: movingclouds 13s linear infinite;
-    -o-animation: movingclouds 13s linear infinite;
 }
 
 #cloud3 {
@@ -48,9 +39,6 @@
     transform: scale(0.9);
     opacity: 0.9;
     animation: movingclouds 15s linear infinite;
-    -webkit-animation: movingclouds 15s linear infinite;
-    -moz-animation: movingclouds 15s linear infinite;
-    -o-animation: movingclouds 15s linear infinite;
 }
 
 #cloud4 {
@@ -62,9 +50,6 @@
     transform: scale(0.8);
     opacity: 0.8;
     animation: movingclouds 20s linear infinite;
-    -webkit-animation: movingclouds 20s linear infinite;
-    -moz-animation: movingclouds 20s linear infinite;
-    -o-animation: movingclouds 20s linear infinite;
 }
 
 #cloud5 {
@@ -76,9 +61,6 @@
     transform: scale(0.7);
     opacity: 0.7;
     animation: movingclouds 25s linear infinite;
-    -webkit-animation: movingclouds 25s linear infinite;
-    -moz-animation: movingclouds 25s linear infinite;
-    -o-animation: movingclouds 25s linear infinite;
 }
 
 #cloud6 {
@@ -90,9 +72,6 @@
     transform: scale(0.5);
     opacity: 0.5;
     animation: movingclouds 27s linear infinite;
-    -webkit-animation: movingclouds 27s linear infinite;
-    -moz-animation: movingclouds 27s linear infinite;
-    -o-animation: movingclouds 27s linear infinite;
 }
 
 #cloud7 {
@@ -104,9 +83,6 @@
     transform: scale(0.4);
     opacity: 0.4;
     animation: movingclouds 29s linear infinite;
-    -webkit-animation: movingclouds 29s linear infinite;
-    -moz-animation: movingclouds 29s linear infinite;
-    -o-animation: movingclouds 29s linear infinite;
 }
 
 #aeroplane {
@@ -116,9 +92,6 @@
     width: 200px;
     height: 70px;
     animation: movingplane 18s linear infinite;
-    -webkit-animation: movingplane 18s linear infinite;
-    -moz-animation: movingplane 18s linear infinite;
-    -o-animation: movingplane 18s linear infinite;
 }
 
 @keyframes movingclouds {
@@ -155,30 +128,18 @@
     0% {
         margin-left: -20%;
         top: 280px;
-        -webkit-transform: rotate(70deg);
-        -moz-transform: rotate(70deg);
-        -ms-transform: rotate(70deg);
         transform: rotate(70deg);
     }
     30% {
         top: 305px;
-        -webkit-transform: rotate(50deg);
-        -moz-transform: rotate(50deg);
-        -ms-transform: rotate(50deg);
         transform: rotate(50deg);
     }
     40% {
         top: 310px;
-        -webkit-transform: rotate(45deg);
-        -moz-transform: rotate(45deg);
-        -ms-transform: rotate(45deg);
         transform: rotate(45deg);
     }
     70% {
         top: 275px;
-        -webkit-transform: rotate(25deg);
-        -moz-transform: rotate(25deg);
-        -ms-transform: rotate(25deg);
         transform: rotate(25deg);
     }
 
@@ -186,9 +147,6 @@
         scale: 0.8;
         margin-left: 110%;
         top: 225px;
-        -webkit-transform: rotate(15deg);
-        -moz-transform: rotate(15deg);
-        -ms-transform: rotate(15deg);
         transform: rotate(15deg);
     }
 }
@@ -197,34 +155,22 @@
     0% {
         margin-left: -30%;
         top: 300px;
-        -webkit-transform: rotate(80deg);
-        -moz-transform: rotate(80deg);
-        -ms-transform: rotate(80deg);
         transform: rotate(80deg);
     }
 
     30% {
         top: 350px;
-        -webkit-transform: rotate(40deg);
-        -moz-transform: rotate(40deg);
-        -ms-transform: rotate(40deg);
         transform: rotate(40deg);
     }
 
     70% {
         top: 225px;
-        -webkit-transform: rotate(25deg);
-        -moz-transform: rotate(25deg);
-        -ms-transform: rotate(25deg);
         transform: rotate(25deg);
     }
 
     100% {
         margin-left: 110%;
         top: 125px;
-        -webkit-transform: rotate(5deg);
-        -moz-transform: rotate(5deg);
-        -ms-transform: rotate(5deg);
         transform: rotate(5deg);
     }
 }
@@ -233,33 +179,21 @@
     0% {
         margin-left: -30%;
         top: 300px;
-        -webkit-transform: rotate(80deg);
-        -moz-transform: rotate(80deg);
-        -ms-transform: rotate(80deg);
         transform: rotate(80deg);
     }
 
     30% {
         top: 350px;
-        -webkit-transform: rotate(40deg);
-        -moz-transform: rotate(40deg);
-        -ms-transform: rotate(40deg);
         transform: rotate(40deg);
     }
     70% {
         top: 225px;
-        -webkit-transform: rotate(25deg);
-        -moz-transform: rotate(25deg);
-        -ms-transform: rotate(25deg);
         transform: rotate(25deg);
     }
 
     100% {
         margin-left: 110%;
         top: 125px;
-        -webkit-transform: rotate(5deg);
-        -moz-transform: rotate(5deg);
-        -ms-transform: rotate(5deg);
         transform: rotate(5deg);
     }
 }
