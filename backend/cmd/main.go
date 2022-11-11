@@ -10,6 +10,7 @@ import (
 	"google.golang.org/api/option"
 
 	"github.com/kolbyrogers/Trippin/backend/pkg/handlers"
+	"github.com/kolbyrogers/Trippin/backend/pkg/trips"
 	"github.com/kolbyrogers/Trippin/backend/pkg/users"
 )
 
@@ -21,9 +22,10 @@ func main() {
 
 
 	usersService := users.NewService(*DB, ctx)
+	tripsService := trips.NewService(*DB, ctx)
 
 	fmt.Println("Starting Server on port 8080")
-	router := handlers.InitializeHandlers(usersService)
+	router := handlers.InitializeHandlers(usersService, tripsService)
 	log.Fatal(http.ListenAndServe(":8080", router))
 }
 
