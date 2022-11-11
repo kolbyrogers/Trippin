@@ -19,6 +19,7 @@
     <div v-if="tripsPlanned">
       <v-row v-for="trip in trips" :key="trip.id">
         <Trip
+          @click="directToTrip(trip.id)"
           :image="trip.image"
           :location="trip.location"
           :date="trip.start_date"
@@ -67,6 +68,9 @@ export default {
     },
     directToNewTrip() {
       this.$router.push('/new_trip')
+    },
+    directToTrip(id) {
+      this.$router.push('/trips/' + id)
     },
   },
   computed: {

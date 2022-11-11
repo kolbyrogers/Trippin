@@ -1,5 +1,11 @@
 <template>
   <v-container>
+    <v-row>
+      <v-col cols="2">
+        <v-btn class="white--text" color="primary" @click="goBack">Back</v-btn>
+      </v-col>
+      <v-col cols="10"></v-col>
+    </v-row>
     <v-row justify="center">
       <h1 class="trip-heading">New Trip</h1>
     </v-row>
@@ -72,10 +78,14 @@
           </v-dialog>
         </v-row>
       </v-col>
-      <v-col cols="6"></v-col>
+      <v-col cols="6">
+        <!-- Add SVG from mockup -->
+      </v-col>
     </v-row>
     <v-row justify="center">
-      <v-btn color="primary" class="white--text">Create</v-btn>
+      <v-btn color="primary" class="white--text" @click="createTrip"
+        >Create</v-btn
+      >
     </v-row>
   </v-container>
 </template>
@@ -97,6 +107,14 @@ export default {
   computed: {
     computedDateFormatted() {
       return this.date
+    },
+  },
+  methods: {
+    goBack() {
+      this.$router.go(-1)
+    },
+    createTrip() {
+      console.log('Create Trip')
     },
   },
 }
