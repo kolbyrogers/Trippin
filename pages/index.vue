@@ -12,7 +12,7 @@
     </div>
     <h1>Trippin'</h1>
     <p>Vacations are better shared.</p>
-    <button type="button" class="login-with-google-btn">
+    <button @click="signInWithGoogle()" type="button" class="login-with-google-btn">
       Sign in with Google
     </button>
   </div>
@@ -22,5 +22,18 @@
 <script>
 export default {
   name: 'IndexPage',
+  methods: {
+    signInWithGoogle: async function () {
+      const provider = new $nuxt.$fireModule.auth.GoogleAuthProvider()
+      this.$fire.auth.signInWithPopup(provider)
+        .catch(function (err) {
+          console.log(err)
+        }).then((user) => {
+          $nuxt.$router.push('/trips')
+          console.log(user);
+          console.log(this.$store.state.user);
+        })
+    }
+  }
 }
 </script>
