@@ -1,5 +1,12 @@
 <template>
   <v-container>
+    <v-row>
+      <v-col cols="2">
+        <v-btn @click="goBack" color="primary" class="white--text">
+          Go Back
+        </v-btn>
+      </v-col>
+    </v-row>
     <v-row justify="center">
       <h1>Share</h1>
     </v-row>
@@ -39,6 +46,9 @@ export default {
   },
   methods: {
     shareTrip() {
+      this.goBack()
+    },
+    goBack() {
       this.$router.go(-1)
     },
   },
