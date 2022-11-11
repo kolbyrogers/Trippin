@@ -3,7 +3,7 @@
     <v-row>
       <v-col cols="2">
         <v-btn @click="goBack" color="primary" class="white--text">
-          Go Back
+          Back
         </v-btn>
       </v-col>
     </v-row>
@@ -19,7 +19,7 @@
       <v-col cols="4"></v-col>
     </v-row>
     <v-row justify="center">
-      <v-radio label="Has Edit Access" v-model="can_edit"></v-radio>
+      <v-checkbox label="Has Edit Access" v-model="can_edit"></v-checkbox>
     </v-row>
     <v-row justify="center" class="pt-2">
       <v-btn
