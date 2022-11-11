@@ -29,8 +29,9 @@ export default {
         .catch(function (err) {
           console.log(err)
         }).then((user) => {
-          //signed in
           $nuxt.$router.push('/trips')
+          console.log(user);
+          console.log(this.$store.state.user);
         })
     }
   }

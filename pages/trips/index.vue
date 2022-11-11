@@ -28,6 +28,7 @@
       </div>
     </v-row>
     <v-row>
+    <h1>Welcome {{ this.$store.state.user.displayName }}</h1>
       <h1 class="trip-header">Current Trips</h1>
     </v-row>
     <v-divider class="thicc"></v-divider>
