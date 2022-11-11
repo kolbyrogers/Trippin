@@ -84,7 +84,8 @@
         </v-row>
       </v-col>
       <v-col cols="6">
-        <!-- Add SVG from mockup -->
+        <!-- TODO: Mobile formatting of svg -->
+        <img src="images/new_trip.svg" />
       </v-col>
     </v-row>
     <v-row justify="center">
@@ -105,7 +106,7 @@ export default {
         .toISOString()
         .substr(0, 10),
       date_end: new Date(
-        Date.now() - new Date().getTimezoneOffset() * 60000 + 1
+        Date.now() - new Date().getTimezoneOffset() * 60000 + 86400000
       )
         .toISOString()
         .substr(0, 10),

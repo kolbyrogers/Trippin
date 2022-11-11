@@ -18,12 +18,8 @@
     <v-divider class="thicc"></v-divider>
     <div v-if="tripsPlanned">
       <v-row v-for="trip in trips" :key="trip.id">
-        <Trip
-          @click="directToTrip(trip.id)"
-          :image="trip.image"
-          :location="trip.location"
-          :date="trip.start_date"
-        ></Trip>
+        <Trip @click="directToTrip(trip.id)" :image="trip.image" :location="trip.location" :date="trip.start_date">
+        </Trip>
       </v-row>
     </div>
     <div v-else>
@@ -37,12 +33,8 @@
     </v-row>
     <v-divider class="thicc"></v-divider>
     <div v-if="pastTripsFinished">
-      <v-row v-for="trip in past_trips" :key="trip.id">
-        <Trip
-          :image="trip.image"
-          :location="trip.location"
-          :date="trip.start_date"
-        ></Trip>
+      <v-row fluid v-for="trip in past_trips" :key="trip.id">
+        <Trip :image="trip.image" :location="trip.location" :date="trip.start_date"></Trip>
       </v-row>
     </div>
     <div v-else>
@@ -58,7 +50,18 @@ export default {
   data() {
     return {
       sharedTrips: false,
-      trips: [],
+      trips: [
+        {
+          location: "New York",
+          start_date: "2020-01-01",
+          image: "/images/snorkel.jpg"
+        },
+        {
+          location: "Bali",
+          start_date: "2022-01-01",
+          image: "/images/snorkel.jpg"
+        }
+      ],
       past_trips: [],
     }
   },
@@ -86,19 +89,23 @@ export default {
 
 <style lang="scss">
 .trip-header {
-  margin-bottom: 0px;
   padding-left: 8px;
+  margin: 0, 0;
 }
+
 .header {
   font-weight: bold;
   text-decoration: underline;
   text-decoration-color: var(--primary);
 }
+
 .change-cursor {
   cursor: pointer;
 }
+
 .thicc {
   border-width: 2px;
   border-color: black;
+  margin-bottom: 25px;
 }
 </style>
