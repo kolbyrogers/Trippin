@@ -19,7 +19,7 @@
         </v-row>
         <v-row>
           <v-dialog
-            ref="dialog"
+            ref="dialog1"
             v-model="modal_start"
             :return-value.sync="date_start"
             persistent
@@ -27,6 +27,8 @@
           >
             <template v-slot:activator="{ on, attrs }">
               <v-text-field
+                outlined
+                dense
                 v-model="date_start"
                 label="Start Date"
                 readonly
@@ -42,16 +44,17 @@
               <v-btn
                 text
                 color="primary"
-                @click="$refs.dialog.save(date_start)"
+                @click="$refs.dialog1.save(date_start)"
               >
                 OK
               </v-btn>
             </v-date-picker>
           </v-dialog>
         </v-row>
+        <!-- TODO: Add a checker to make sure end date is AFTER start date. Format inputs -->
         <v-row>
           <v-dialog
-            ref="dialog"
+            ref="dialog2"
             v-model="modal_end"
             :return-value.sync="date_end"
             persistent
@@ -59,6 +62,8 @@
           >
             <template v-slot:activator="{ on, attrs }">
               <v-text-field
+                outlined
+                dense
                 v-model="date_end"
                 label="End Date"
                 readonly
@@ -71,7 +76,7 @@
               <v-btn text color="primary" @click="modal_end = false">
                 Cancel
               </v-btn>
-              <v-btn text color="primary" @click="$refs.dialog.save(date_end)">
+              <v-btn text color="primary" @click="$refs.dialog2.save(date_end)">
                 OK
               </v-btn>
             </v-date-picker>
@@ -79,7 +84,8 @@
         </v-row>
       </v-col>
       <v-col cols="6">
-        <!-- Add SVG from mockup -->
+        <!-- TODO: Mobile formatting of svg -->
+        <img src="../assets/images/new_trip.svg" />
       </v-col>
     </v-row>
     <v-row justify="center">
@@ -99,7 +105,9 @@ export default {
       date_start: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
         .toISOString()
         .substr(0, 10),
-      date_end: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
+      date_end: new Date(
+        Date.now() - new Date().getTimezoneOffset() * 60000 + 1
+      )
         .toISOString()
         .substr(0, 10),
     }
@@ -115,6 +123,9 @@ export default {
     },
     createTrip() {
       console.log('Create Trip')
+    },
+    print() {
+      console.log('clicked')
     },
   },
 }
