@@ -30,8 +30,6 @@ export default {
           console.log(err)
         }).then((user) => {
           $nuxt.$router.push('/trips')
-          console.log(user);
-          console.log(this.$store.state.user);
         })
     }
   }
