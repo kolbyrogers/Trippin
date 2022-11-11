@@ -9,6 +9,7 @@ import (
 	"cloud.google.com/go/firestore"
 	"google.golang.org/api/option"
 
+	"github.com/kolbyrogers/Trippin/backend/pkg/events"
 	"github.com/kolbyrogers/Trippin/backend/pkg/handlers"
 	"github.com/kolbyrogers/Trippin/backend/pkg/trips"
 	"github.com/kolbyrogers/Trippin/backend/pkg/users"
@@ -23,9 +24,10 @@ func main() {
 
 	usersService := users.NewService(*DB, ctx)
 	tripsService := trips.NewService(*DB, ctx)
+	eventsService := events.NewService(*DB, ctx)
 
 	fmt.Println("Starting Server on port 8080")
-	router := handlers.InitializeHandlers(usersService, tripsService)
+	router := handlers.InitializeHandlers(usersService, tripsService, eventsService)
 	log.Fatal(http.ListenAndServe(":8080", router))
 }
 

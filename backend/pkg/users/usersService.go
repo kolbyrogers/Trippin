@@ -55,6 +55,9 @@ func (s *service) GetUser(ID string) (User, error) {
 }
 
 func (s *service) AddUser(user User) (string, error) {
+
+	// check for user exists
+
 	_, _, err := s.DB.Collection("users").Add(s.ctx, map[string]interface{}{
 		"displayName": user.DisplayName,
 		"email": user.Email,
