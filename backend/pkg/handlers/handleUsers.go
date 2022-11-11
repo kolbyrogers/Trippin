@@ -13,7 +13,6 @@ import (
 func getUserHandler(usersService users.Service) func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
 		ID := mux.Vars(r)["UserId"]
-		fmt.Println(ID)
 		user, error := usersService.GetUser(ID)
 		if error != nil {
 			w.WriteHeader(http.StatusInternalServerError)
@@ -38,20 +37,18 @@ func addUserHandler(usersService users.Service) func(w http.ResponseWriter, r *h
 			json.NewEncoder(w).Encode("Error reading request body " + err.Error())
 			return
 		}
-		fmt.Println(string(bodyBytes[:]))
 
 		// convert bodyBytes to a NewUser struct
 		err = json.Unmarshal(bodyBytes, &newUser)
 
-		// &userStruct.Email = string(bodyBytes["email"])
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			json.NewEncoder(w).Encode("Error unmarshalling request body " + err.Error())
 			return
 		}
-		fmt.Println(newUser)
+		fmt.Println("attempting to create user with data: ", newUser)
 
-		_, err = usersService.AddUser(newUser)
+		createdUser, err := usersService.AddUser(newUser)
 
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
@@ -61,5 +58,6 @@ func addUserHandler(usersService users.Service) func(w http.ResponseWriter, r *h
 		w.Header().Set("Content-Type", "application/json")
 		enableCors(&w)
 		w.WriteHeader(http.StatusCreated)
+		json.NewEncoder(w).Encode("created User: " + createdUser)
 	}
 }
