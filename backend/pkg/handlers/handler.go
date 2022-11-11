@@ -1,6 +1,8 @@
 package handlers
 
 import (
+	"net/http"
+
 	"github.com/gorilla/mux"
 	"github.com/kolbyrogers/Trippin/backend/pkg/events"
 	"github.com/kolbyrogers/Trippin/backend/pkg/trips"
@@ -25,16 +27,27 @@ func InitializeHandlers(usersService users.Service, tripsService trips.Service, 
 	// router.HandleFunc("/users", getUserHandler(usersService)).Methods("GET")
 	// router.HandleFunc("/users", addUserHandler(usersService)).Methods("POST")
 
+	router.HandleFunc("/api/users", PreflightAddResourceHandler).Methods("OPTIONS")
 	router.HandleFunc("/api/users/{UserId}", getUserHandler(usersService)).Methods("GET")
 	router.HandleFunc("/api/users", addUserHandler(usersService)).Methods("POST")
 
 	// Trips ----------------------------------------------------------------
+	router.HandleFunc("/api/trips", PreflightAddResourceHandler).Methods("OPTIONS")
 	router.HandleFunc("/api/trips/{UserId}", getTripHandler(tripsService)).Methods("GET")
 	router.HandleFunc("/api/trips", addTripHandler(tripsService)).Methods("POST")
 
 	// Events ----------------------------------------------------------------
+	router.HandleFunc("/api/events", PreflightAddResourceHandler).Methods("OPTIONS")
 	router.HandleFunc("/api/events/{TripId}", getEventsHandler(eventsService)).Methods("GET")
 	router.HandleFunc("/api/events", addEventHandler(eventsService)).Methods("POST")
 
 	return router
+}
+
+func PreflightAddResourceHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS")
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+	w.Header().Set("Access-Control-Max-Age", "86400")
+	w.WriteHeader(http.StatusNoContent)
 }
