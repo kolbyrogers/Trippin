@@ -8,27 +8,13 @@
       </v-col>
     </v-row>
     <v-row justify="center">
-      <div>
-        <h3
-          class="change-cursor"
-          @click="changeTripPerspective"
-          :class="{ header: !sharedTrips }"
-        >
-          My Trips
-        </h3>
-      </div>
-      <div class="pl-4">
-        <h3
-          class="change-cursor"
-          @click="changeTripPerspective"
-          :class="{ header: sharedTrips }"
-        >
-          Shared With Me
-        </h3>
-      </div>
+      <v-tabs>
+        <v-tabs-slider color="primary"></v-tabs-slider>
+        <v-tab>My Trips</v-tab>
+        <v-tab>Shared With Me</v-tab>
+      </v-tabs>
     </v-row>
     <v-row>
-    <h1>Welcome {{ this.$store.state.user.displayName }}</h1>
       <h1 class="trip-header">Current Trips</h1>
     </v-row>
     <v-divider class="thicc"></v-divider>
