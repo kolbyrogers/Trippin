@@ -31,10 +31,39 @@
       <h1 class="trip-header">Current Trips</h1>
     </v-row>
     <v-divider class="thicc"></v-divider>
+    <div v-if="tripsPlanned">
+      <v-row v-for="trip in trips" :key="trip.id">
+        <Trip
+          :image="trip.image"
+          :location="trip.location"
+          :date="trip.start_date"
+        ></Trip>
+      </v-row>
+    </div>
+    <div v-else>
+      <v-row class="pl-3 pt-4">
+        <h3>You have no trips planned, plan a trip today!</h3>
+      </v-row>
+    </div>
+
     <v-row class="mt-4">
       <h1 class="trip-header">Past Trips</h1>
     </v-row>
     <v-divider class="thicc"></v-divider>
+    <div v-if="pastTripsFinished">
+      <v-row v-for="trip in past_trips" :key="trip.id">
+        <Trip
+          :image="trip.image"
+          :location="trip.location"
+          :date="trip.start_date"
+        ></Trip>
+      </v-row>
+    </div>
+    <div v-else>
+      <v-row class="pl-3 pt-4">
+        <h3>You have no past trips.</h3>
+      </v-row>
+    </div>
   </v-container>
 </template>
 
@@ -43,6 +72,8 @@ export default {
   data() {
     return {
       sharedTrips: false,
+      trips: [],
+      past_trips: [],
     }
   },
   methods: {
@@ -53,12 +84,21 @@ export default {
       this.$router.push('/new_trip')
     },
   },
+  computed: {
+    tripsPlanned() {
+      return this.trips.length > 0 ? true : false
+    },
+    pastTripsFinished() {
+      return this.past_trips.length > 0 ? true : false
+    },
+  },
 }
 </script>
 
 <style lang="scss">
 .trip-header {
   margin-bottom: 0px;
+  padding-left: 8px;
 }
 .header {
   font-weight: bold;

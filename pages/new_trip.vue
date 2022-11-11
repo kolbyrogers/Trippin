@@ -1,9 +1,111 @@
 <template>
-  <h1>Hello World</h1>
+  <v-container>
+    <v-row justify="center">
+      <h1 class="trip-heading">New Trip</h1>
+    </v-row>
+    <v-row>
+      <v-col cols="6">
+        <v-row>
+          <v-text-field label="Location" solo></v-text-field>
+        </v-row>
+        <v-row>
+          <!-- Import Google Map Component -->
+        </v-row>
+        <v-row>
+          <v-dialog
+            ref="dialog"
+            v-model="modal_start"
+            :return-value.sync="date_start"
+            persistent
+            width="290px"
+          >
+            <template v-slot:activator="{ on, attrs }">
+              <v-text-field
+                v-model="date_start"
+                label="Start Date"
+                readonly
+                v-bind="attrs"
+                v-on="on"
+              ></v-text-field>
+            </template>
+            <v-date-picker v-model="date_start" scrollable>
+              <v-spacer></v-spacer>
+              <v-btn text color="primary" @click="modal_start = false">
+                Cancel
+              </v-btn>
+              <v-btn
+                text
+                color="primary"
+                @click="$refs.dialog.save(date_start)"
+              >
+                OK
+              </v-btn>
+            </v-date-picker>
+          </v-dialog>
+        </v-row>
+        <v-row>
+          <v-dialog
+            ref="dialog"
+            v-model="modal_end"
+            :return-value.sync="date_end"
+            persistent
+            width="290px"
+          >
+            <template v-slot:activator="{ on, attrs }">
+              <v-text-field
+                v-model="date_end"
+                label="End Date"
+                readonly
+                v-bind="attrs"
+                v-on="on"
+              ></v-text-field>
+            </template>
+            <v-date-picker v-model="date_end" scrollable>
+              <v-spacer></v-spacer>
+              <v-btn text color="primary" @click="modal_end = false">
+                Cancel
+              </v-btn>
+              <v-btn text color="primary" @click="$refs.dialog.save(date_end)">
+                OK
+              </v-btn>
+            </v-date-picker>
+          </v-dialog>
+        </v-row>
+      </v-col>
+      <v-col cols="6"></v-col>
+    </v-row>
+    <v-row justify="center">
+      <v-btn color="primary" class="white--text">Create</v-btn>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
-export default {}
+export default {
+  data() {
+    return {
+      modal_start: false,
+      modal_end: false,
+      date_start: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
+        .toISOString()
+        .substr(0, 10),
+      date_end: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
+        .toISOString()
+        .substr(0, 10),
+    }
+  },
+  computed: {
+    computedDateFormatted() {
+      return this.date
+    },
+  },
+}
 </script>
 
-<style></style>
+<style>
+.trip-heading {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #3c3c3c;
+}
+</style>
