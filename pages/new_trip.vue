@@ -85,7 +85,7 @@
       </v-col>
       <v-col cols="6">
         <!-- TODO: Mobile formatting of svg -->
-        <img src="images/new_trip.svg" />
+        <img src="/images/new_trip.svg" />
       </v-col>
     </v-row>
     <v-row justify="center">
