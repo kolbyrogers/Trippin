@@ -9,12 +9,12 @@ import (
 
 type Repository interface {
 	GetEvents(ID string) (Events, error)
-	// AddEvent(Event) (string, error)
+	AddEvent(Event) (string, error)
 }
 
 type Service interface {
 	GetEvents(ID string) (Events, error)
-	// AddEvent(Event) (string, error)
+	AddEvent(Event) (string, error)
 
 }
 
@@ -66,4 +66,18 @@ func (s *service) GetEvents(ID string) (Events, error) {
 	}
 
 	return listOfAllEvents, nil
+}
+
+func (s *service) AddEvent(event Event) (string, error) {
+	_, _, err := s.DB.Collection("events").Add(s.ctx, map[string]interface{}{
+		"name":     event.Name,
+		"location": event.Location,
+		"date":     event.Date,
+		"time":     event.Time,
+		"tripID":   event.TripId,
+	})
+	if err != nil {
+		return "", err
+	}
+	return "success", nil
 }

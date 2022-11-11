@@ -34,6 +34,7 @@ func InitializeHandlers(usersService users.Service, tripsService trips.Service, 
 
 	// Events ----------------------------------------------------------------
 	router.HandleFunc("/api/events/{TripId}", getEventsHandler(eventsService)).Methods("GET")
+	router.HandleFunc("/api/events", addEventHandler(eventsService)).Methods("POST")
 
 	return router
 }
