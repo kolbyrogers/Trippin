@@ -36,27 +36,35 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
-    '@nuxtjs/firebase',
+    [
+      '@nuxtjs/firebase',
+      {
+        config: {
+          apiKey: 'AIzaSyDHLqqHUzwJQEUFbQbPoSgXv4mtZ3-BygI',
+          authDomain: 'trippin-33f25.firebaseapp.com',
+          projectId: 'trippin-33f25',
+          storageBucket: 'trippin-33f25.appspot.com',
+          messagingSenderId: '949476544162',
+          appId: '1:949476544162:web:aa0701e58fd2df1de151fb',
+        },
+        services: {
+          auth: {
+            persistence: 'local', // default
+            initialize: {
+              onAuthStateChangedAction: 'onAuthStateChangedAction',
+              subscribeManually: false,
+            },
+            ssr: false, // default
+          },
+        },
+      },
+    ],
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
     baseURL: '/',
-  },
-
-  firebase: {
-    config: {
-      apiKey: 'AIzaSyDHLqqHUzwJQEUFbQbPoSgXv4mtZ3-BygI',
-      authDomain: 'trippin-33f25.firebaseapp.com',
-      projectId: 'trippin-33f25',
-      storageBucket: 'trippin-33f25.appspot.com',
-      messagingSenderId: '949476544162',
-      appId: '1:949476544162:web:aa0701e58fd2df1de151fb',
-    },
-    services: {
-      auth: true, // Just as example. Can be any other service.
-    },
   },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
