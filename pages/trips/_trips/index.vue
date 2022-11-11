@@ -47,7 +47,9 @@ export default {
     }
   },
   methods: {
-    directToNewEvent() {},
+    directToNewEvent() {
+      this.$router.push('/trips/' + this.$route.params.trips + '/events')
+    },
     directToShare() {
       this.$router.push('/trips/' + this.$route.params.trips + '/share')
     },
