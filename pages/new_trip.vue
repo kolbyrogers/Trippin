@@ -84,7 +84,8 @@
         </v-row>
       </v-col>
       <v-col cols="6">
-        <!-- Add SVG from mockup -->
+        <!-- TODO: Mobile formatting of svg -->
+        <img src="../assets/images/new_trip.svg" />
       </v-col>
     </v-row>
     <v-row justify="center">
