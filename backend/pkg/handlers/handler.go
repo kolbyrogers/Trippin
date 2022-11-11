@@ -24,6 +24,7 @@ func InitializeHandlers(usersService users.Service) *mux.Router { // add this in
 	// router.HandleFunc("/users", addUserHandler(usersService)).Methods("POST")
 
 	router.HandleFunc("/api/users/{UserId}", getUserHandler(usersService)).Methods("GET")
+	router.HandleFunc("/api/users", addUserHandler(usersService)).Methods("POST")
 
 	return router
 }

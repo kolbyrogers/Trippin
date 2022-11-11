@@ -9,12 +9,12 @@ import (
 
 type Repository interface {
 	GetUser(ID string) (User, error)
-	// AddUser(User) (string, error)
+	AddUser(User) (string, error)
 }
 
 type Service interface {
 	GetUser(ID string) (User, error)
-	// AddUser(User) (string, error)
+	AddUser(User) (string, error)
 }
 
 type service struct {
@@ -25,10 +25,9 @@ type service struct {
 }
 
 type User struct {
-	ID        string `json:"id"`
-	FirstName string `json:"firstName"`
-	LastName  string `json:"lastName"`
-	Email     string `json:"email"`
+	ID          string `json:"id"`
+	DisplayName string `json:"displayName"`
+	Email       string `json:"email"`
 	
 }
 
@@ -44,21 +43,27 @@ func (s *service) GetUser(ID string) (User, error) {
 	}
 	
 	data := resp.Data()
-
+	user := User{
+		ID:        ID,
+		DisplayName: data["displayName"].(string),
+		Email:     data["email"].(string),
+	}
 	fmt.Println(data)
-	// fmt.Println(resp)
-	// body, err := ioutil.ReadAll(resp)
 
-	// // unmarshal user into User struct
-	// returnuser, err := Unmarshal(body, &User{})
-	// if err != nil {
-	// 	fmt.Println(err)
-	// }
-
-
-	// fmt.Println(user)
 	
-	return User{}, nil
+	return user, nil
+}
+
+func (s *service) AddUser(user User) (string, error) {
+	_, _, err := s.DB.Collection("users").Add(s.ctx, map[string]interface{}{
+		"displayName": user.DisplayName,
+		"email": user.Email,
+	})
+	if err != nil {
+		fmt.Println(err)
+		return "error", err
+	}
+	return "successfully added a new user", nil
 }
 
 // 101 88 245
