@@ -30,7 +30,7 @@ func getUserHandler(usersService users.Service) func(w http.ResponseWriter, r *h
 func addUserHandler(usersService users.Service) func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var newUser users.User
-		
+
 		bodyBytes, err := ioutil.ReadAll(r.Body)
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
@@ -46,6 +46,15 @@ func addUserHandler(usersService users.Service) func(w http.ResponseWriter, r *h
 			json.NewEncoder(w).Encode("Error unmarshalling request body " + err.Error())
 			return
 		}
+
+		currentUser, _ := usersService.GetUserByEmail(newUser.Email)
+		if currentUser.Email != "" {
+			w.WriteHeader(http.StatusConflict)
+			json.NewEncoder(w).Encode("User already exists")
+			return
+		}
+
+
 		fmt.Println("attempting to create user with data: ", newUser)
 
 		createdUser, err := usersService.AddUser(newUser)

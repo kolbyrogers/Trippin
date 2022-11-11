@@ -10,11 +10,13 @@ import (
 type Repository interface {
 	GetUser(ID string) (User, error)
 	AddUser(User) (string, error)
+	GetUserByEmail(email string) (User, error)
 }
 
 type Service interface {
 	GetUser(ID string) (User, error)
 	AddUser(User) (string, error)
+	GetUserByEmail(email string) (User, error)
 }
 
 type service struct {
@@ -67,6 +69,25 @@ func (s *service) AddUser(user User) (string, error) {
 		return "error", err
 	}
 	return "successfully added a new user", nil
+}
+
+func (s *service) GetUserByEmail(email string) (User, error) {
+	resp, err := s.DB.Collection("users").Where("email", "==", email).Documents(s.ctx).GetAll()
+	if err != nil {
+		fmt.Println(err)
+		return User{}, err
+	}
+	
+	data := resp[0].Data()
+	user := User{
+		ID:        resp[0].Ref.ID,
+		DisplayName: data["displayName"].(string),
+		Email:     data["email"].(string),
+	}
+	fmt.Println(data)
+
+	
+	return user, nil
 }
 
 // 101 88 245
