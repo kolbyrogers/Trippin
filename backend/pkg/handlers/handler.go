@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/gorilla/mux"
@@ -45,6 +46,7 @@ func InitializeHandlers(usersService users.Service, tripsService trips.Service, 
 }
 
 func PreflightAddResourceHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("PreflightAddResourceHandler")
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS")
 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
