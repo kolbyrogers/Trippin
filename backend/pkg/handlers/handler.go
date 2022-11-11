@@ -29,6 +29,7 @@ func InitializeHandlers(usersService users.Service, tripsService trips.Service) 
 
 	// Trips ----------------------------------------------------------------
 	router.HandleFunc("/api/trips/{UserId}", getTripHandler(tripsService)).Methods("GET")
+	router.HandleFunc("/api/trips", addTripHandler(tripsService)).Methods("POST")
 
 	return router
 }
