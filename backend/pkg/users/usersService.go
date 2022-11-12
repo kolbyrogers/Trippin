@@ -78,16 +78,19 @@ func (s *service) GetUserByEmail(email string) (User, error) {
 		return User{}, err
 	}
 	
-	data := resp[0].Data()
-	user := User{
-		ID:        resp[0].Ref.ID,
-		DisplayName: data["displayName"].(string),
-		Email:     data["email"].(string),
-	}
-	fmt.Println(data)
-
+	// fmt.Print(resp)
+	if(len(resp) > 0){
+		data := resp[0].Data()
+		user := User{
+			ID:        resp[0].Ref.ID,
+			DisplayName: data["displayName"].(string),
+			Email:     data["email"].(string),
+		}
 	
+	fmt.Println(data)
 	return user, nil
+	}
+	return User{}, nil
 }
 
 // 101 88 245
