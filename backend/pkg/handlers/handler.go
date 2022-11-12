@@ -37,6 +37,8 @@ func InitializeHandlers(usersService users.Service, tripsService trips.Service, 
 	router.HandleFunc("/api/trips/{UserId}", getTripHandler(tripsService)).Methods("GET")
 	router.HandleFunc("/api/trips", addTripHandler(tripsService)).Methods("POST")
 	router.HandleFunc("/api/trips/{TripId}", updateTripHandler(tripsService, usersService)).Methods("PUT")
+	router.HandleFunc("/api/trips", PreflightAddResourceHandler).Methods("OPTIONS")
+
 
 	// Events ----------------------------------------------------------------
 	router.HandleFunc("/api/events", PreflightAddResourceHandler).Methods("OPTIONS")
