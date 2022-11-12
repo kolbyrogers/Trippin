@@ -29,7 +29,12 @@ export default {
         .catch(function (err) {
           console.log(err)
         }).then((user) => {
-          this.createUser(this.$store.state.user)
+          const newUser = {
+            uid: user.user.uid,
+            email: user.user.email,
+            displayName: user.user.displayName,
+          }
+          this.createUser(newUser)
           $nuxt.$router.push('/trips')
         })
     },

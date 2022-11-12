@@ -30,23 +30,41 @@ export default {
   },
   data() {
     return {
-      events: [
-        {
-          id: 12,
-          name: 'Snorkeling',
-          location: 'Coral Reef',
-          image: '/images/snorkel.jpg',
-        },
-        {
-          id: 21,
-          name: 'Hiking',
-          location: 'Mount Everest',
-          image: '/images/snorkel.jpg',
-        },
-      ],
+      events: [],
+      trip: {},
     }
   },
   methods: {
+    getEvents: async function () {
+      const that = this;
+      this.$axios.get('http://localhost:8080/api/events/' + this.$route.params.trips, {
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      })
+        .then(function (response) {
+          console.log(response.data);
+          that.events = response.data;
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
+    getTrip: async function () {
+      const that = this;
+      this.$axios.get('http://localhost:8080/api/trips/' + this.$route.params.trips, {
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      })
+        .then(function (response) {
+          console.log(response.data);
+          that.trip = response.data;
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
     directToNewEvent() {
       this.$router.push('/trips/' + this.$route.params.trips + '/events')
     },
@@ -56,6 +74,10 @@ export default {
     back() {
       this.$router.go(-1)
     },
+  },
+  async beforeMount() {
+    // await this.getTrip(this.$route.params.trips);
+    await this.getEvents()
   },
 }
 </script>
