@@ -60,9 +60,9 @@ func (s *service) AddUser(user User) (string, error) {
 
 	// check for user exists
 
-	_, _, err := s.DB.Collection("users").Add(s.ctx, map[string]interface{}{
+	_, err := s.DB.Collection("users").Doc(user.ID).Set(s.ctx, map[string]interface{}{
 		"displayName": user.DisplayName,
-		"email": user.Email,
+		"email":       user.Email,
 	})
 	if err != nil {
 		fmt.Println(err)
