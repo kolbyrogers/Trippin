@@ -58,3 +58,45 @@ func getPhotosHandlerByEvent(photosService photos.Service, eventsService events.
 		json.NewEncoder(w).Encode(photos)
 	}
 }
+
+func addPhotoHandler(photosService photos.Service, tripsService trips.Service, eventsService events.Service) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		SetHeaders(w)
+
+		var photo photos.Photo
+		err := json.NewDecoder(r.Body).Decode(&photo)
+		if err != nil {
+			fmt.Println(err)
+			w.WriteHeader(http.StatusInternalServerError)
+			return
+		}
+
+		tripId, err := tripsService.GetTrip(photo.TripId)
+		if err != nil {
+			fmt.Println(err)
+			w.WriteHeader(http.StatusInternalServerError)
+			return
+		}
+		if tripId.ID == "" {
+			w.WriteHeader(http.StatusNotFound)
+			return
+		}
+		eventId, err := eventsService.GetEvent(photo.EventId)
+		if err != nil {
+			fmt.Println(err)
+			w.WriteHeader(http.StatusInternalServerError)
+			return
+		}
+		if eventId.ID == "" {
+			w.WriteHeader(http.StatusNotFound)
+			return
+		}
+		err = photosService.AddPhoto(photo)
+		if err != nil {
+			fmt.Println(err)
+			w.WriteHeader(http.StatusInternalServerError)
+			return
+		}
+		w.WriteHeader(http.StatusCreated)
+	}
+}

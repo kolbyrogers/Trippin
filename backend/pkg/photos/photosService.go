@@ -9,7 +9,7 @@ import (
 type Service interface {
 	GetPhotosByEventId(ID string) (Photos, error)
 	GetPhotosByTripId(ID string) (Photos, error)
-	// AddPhoto(Photo) (string, error)
+	AddPhoto(Photo) (error)
 }
 
 type service struct {
@@ -59,7 +59,7 @@ func (s *service) GetPhotosByTripId(ID string) (Photos, error) {
 
 	resp, err := s.DB.Collection("photos").Where("tripId", "==", ID).Documents(s.ctx).GetAll()
 	if err != nil {
-		return listOfAllPhotos, err
+		return Photos{}, err
 	}
 
 	for _, doc := range resp {
@@ -75,4 +75,17 @@ func (s *service) GetPhotosByTripId(ID string) (Photos, error) {
 	}
 
 	return listOfAllPhotos, nil
+}
+
+func (s *service) AddPhoto(photo Photo) (error) {
+	_, _, err := s.DB.Collection("photos").Add(s.ctx, map[string]interface{}{
+		"tripId": photo.TripId,
+		"eventId": photo.EventId,
+		"photoUrl": photo.Url,
+	})
+	if err != nil {
+		return err
+	}
+
+	return  nil
 }
