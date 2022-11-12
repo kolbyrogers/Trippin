@@ -14,6 +14,8 @@ import (
 
 func getTripHandler(tripsService trips.Service) func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
+		SetHeaders(w)
+
 		ID := mux.Vars(r)["UserId"]
 		fmt.Println(ID)
 		trips, error := tripsService.GetTrips(ID)
@@ -31,6 +33,8 @@ func getTripHandler(tripsService trips.Service) func(w http.ResponseWriter, r *h
 
 func addTripHandler(tripsService trips.Service) func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
+		SetHeaders(w)
+
 		var newTrip trips.Trip
 		bodyBytes, err := ioutil.ReadAll(r.Body)
 		if err != nil {
@@ -55,8 +59,7 @@ func addTripHandler(tripsService trips.Service) func(w http.ResponseWriter, r *h
 			json.NewEncoder(w).Encode(err)
 			return
 		}
-		w.Header().Set("Content-Type", "application/json")
-		enableCors(&w)
+
 		w.WriteHeader(http.StatusCreated)
 		json.NewEncoder(w).Encode(createdTrip)
 	}
@@ -64,8 +67,9 @@ func addTripHandler(tripsService trips.Service) func(w http.ResponseWriter, r *h
 
 func updateTripHandler(tripsService trips.Service, usersService users.Service) func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
+		SetHeaders(w)
+		
 		tripId := mux.Vars(r)["TripId"]
-		w.Header().Set("Access-Control-Allow-Origin", "*")
 
 		type ShareUser struct {
 			Email string `json:"email"`
@@ -114,7 +118,6 @@ func updateTripHandler(tripsService trips.Service, usersService users.Service) f
 			json.NewEncoder(w).Encode(err)
 			return
 		}
-		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusOK)
 		json.NewEncoder(w).Encode(clearedTrip)
 	}

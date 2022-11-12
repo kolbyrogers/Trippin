@@ -12,6 +12,8 @@ import (
 
 func getEventsHandler(eventsService events.Service) func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
+		SetHeaders(w)
+
 		ID := mux.Vars(r)["TripId"]
 		fmt.Println(ID)
 		events, error := eventsService.GetEvents(ID)
@@ -29,6 +31,8 @@ func getEventsHandler(eventsService events.Service) func(w http.ResponseWriter, 
 
 func addEventHandler(eventsService events.Service) func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
+		SetHeaders(w)
+
 		var newEvent events.Event
 
 		bodyBytes, err := ioutil.ReadAll(r.Body)
@@ -57,13 +61,8 @@ func addEventHandler(eventsService events.Service) func(w http.ResponseWriter, r
 			json.NewEncoder(w).Encode(err)
 			return
 		}
-		w.Header().Set("Content-Type", "application/json")
-		enableCors(&w)
+
 		w.WriteHeader(http.StatusCreated)
 		json.NewEncoder(w).Encode(createdEvent)
 	}
-}
-
-func enableCors(w *http.ResponseWriter) {
-	(*w).Header().Set("Access-Control-Allow-Origin", "*")
 }
