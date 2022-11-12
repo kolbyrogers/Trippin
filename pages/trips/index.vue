@@ -58,7 +58,7 @@ export default {
   methods: {
     getTrips: async function () {
       const that = this;
-      this.$axios.get('http://localhost:8080/api/trips/' + this.$store.state.user.uid, {
+      this.$axios.get('http://localhost:8080/api/trips/users/' + this.$store.state.user.uid, {
         headers: {
           'Content-Type': 'application/json',
         }
