@@ -2,7 +2,6 @@ package handlers
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"net/http"
 
@@ -12,8 +11,10 @@ import (
 
 func getEventsHandler(eventsService events.Service) func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
+		SetHeaders(w)
+
 		ID := mux.Vars(r)["TripId"]
-		fmt.Println(ID)
+		// fmt.Println(ID)
 		events, error := eventsService.GetEvents(ID)
 		if error != nil {
 			w.WriteHeader(http.StatusInternalServerError)
@@ -29,6 +30,8 @@ func getEventsHandler(eventsService events.Service) func(w http.ResponseWriter, 
 
 func addEventHandler(eventsService events.Service) func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
+		SetHeaders(w)
+
 		var newEvent events.Event
 
 		bodyBytes, err := ioutil.ReadAll(r.Body)
@@ -37,18 +40,16 @@ func addEventHandler(eventsService events.Service) func(w http.ResponseWriter, r
 			json.NewEncoder(w).Encode("Error reading request body " + err.Error())
 			return
 		}
-		fmt.Println(string(bodyBytes[:]))
+		// fmt.Println(string(bodyBytes[:]))
 
 		// convert bodyBytes to a NewUser struct
 		err = json.Unmarshal(bodyBytes, &newEvent)
-
-		// &userStruct.Email = string(bodyBytes["email"])
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			json.NewEncoder(w).Encode("Error unmarshalling request body " + err.Error())
 			return
 		}
-		fmt.Println(newEvent)
+		// fmt.Println(newEvent)
 
 		createdEvent, err := eventsService.AddEvent(newEvent)
 
@@ -57,13 +58,8 @@ func addEventHandler(eventsService events.Service) func(w http.ResponseWriter, r
 			json.NewEncoder(w).Encode(err)
 			return
 		}
-		w.Header().Set("Content-Type", "application/json")
-		enableCors(&w)
+
 		w.WriteHeader(http.StatusCreated)
 		json.NewEncoder(w).Encode(createdEvent)
 	}
-}
-
-func enableCors(w *http.ResponseWriter) {
-	(*w).Header().Set("Access-Control-Allow-Origin", "*")
 }

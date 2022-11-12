@@ -2,7 +2,6 @@ package handlers
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"net/http"
 
@@ -12,6 +11,8 @@ import (
 
 func getUserHandler(usersService users.Service) func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
+		SetHeaders(w)
+
 		ID := mux.Vars(r)["UserId"]
 		user, error := usersService.GetUser(ID)
 		if error != nil {
@@ -29,7 +30,8 @@ func getUserHandler(usersService users.Service) func(w http.ResponseWriter, r *h
 
 func addUserHandler(usersService users.Service) func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
-		enableCors(&w)
+		SetHeaders(w)
+
 		var newUser users.User
 
 		bodyBytes, err := ioutil.ReadAll(r.Body)
@@ -56,7 +58,7 @@ func addUserHandler(usersService users.Service) func(w http.ResponseWriter, r *h
 		}
 
 
-		fmt.Println("attempting to create user with data: ", newUser)
+		// fmt.Println("attempting to create user with data: ", newUser)
 
 		createdUser, err := usersService.AddUser(newUser)
 
