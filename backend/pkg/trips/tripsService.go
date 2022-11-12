@@ -106,6 +106,10 @@ func (s *service) GetTrips(ID string) ([]Trip, error) {
 		trip.ImageURL = doc.Data()["imageURL"].(string)
 		listOfAllTrips = append(listOfAllTrips, trip)
 	}
+
+	if len(listOfAllTrips) == 0 {
+		return listOfAllTrips, fmt.Errorf("no trips found")
+	}
 	
 	return listOfAllTrips, nil
 }
@@ -116,7 +120,10 @@ func (s *service) GetOneTrip(ID string) (Trip, error) {
 		fmt.Println("error getting trip" + err.Error())
 		return Trip{}, err
 	}
-	// fmt.Println(resp.Data()["editors"])
+	if !resp.Exists() {
+		return Trip{}, fmt.Errorf("no trip found")
+	}
+
 	data := resp.Data()
 	trip := Trip{
 		ID: ID,

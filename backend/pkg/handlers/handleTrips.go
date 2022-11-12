@@ -12,14 +12,25 @@ import (
 )
 
 
-func getTripsHandler(tripsService trips.Service) func(w http.ResponseWriter, r *http.Request) {
+func getTripsHandler(tripsService trips.Service, usersService users.Service) func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
 		SetHeaders(w)
 
 		ID := mux.Vars(r)["UserId"]
 		// fmt.Println(ID)
 
-		// check to see if user exists
+		user, err := usersService.GetUser(ID)
+		if err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
+			json.NewEncoder(w).Encode("Error getting user " + err.Error())
+			return
+		}
+		if user.Email == "" {
+			w.WriteHeader(http.StatusNotFound)
+			json.NewEncoder(w).Encode("User not found")
+			return
+		}
+
 
 		trips, error := tripsService.GetTrips(ID)
 		if error != nil {

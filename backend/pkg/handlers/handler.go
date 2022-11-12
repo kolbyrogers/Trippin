@@ -35,7 +35,7 @@ func InitializeHandlers(services Services) *mux.Router { // add this in a second
 
 	// Trips ----------------------------------------------------------------
 	router.HandleFunc("/api/trips", PreflightAddResourceHandler).Methods("OPTIONS")
-	router.HandleFunc("/api/trips/users/{UserId}", getTripsHandler(tripsService)).Methods("GET")
+	router.HandleFunc("/api/trips/users/{UserId}", getTripsHandler(tripsService, usersService)).Methods("GET")
 	router.HandleFunc("/api/trips", addTripHandler(tripsService)).Methods("POST")
 	router.HandleFunc("/api/trips/{TripId}", getTripHandler(tripsService)).Methods("GET")
 	router.HandleFunc("/api/trips/{TripId}", updateTripHandler(tripsService, usersService)).Methods("PUT")
