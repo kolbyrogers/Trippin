@@ -22,7 +22,7 @@ type Photo struct {
 	ID          string `json:"id"`
 	TripId		string `json:"tripId"`
 	EventId		string `json:"eventId"`
-	Url			string `json:"url"`
+	Url			string `json:"photoUrl"`
 }
 
 type Photos []Photo

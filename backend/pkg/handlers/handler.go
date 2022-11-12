@@ -51,7 +51,7 @@ func InitializeHandlers(services Services) *mux.Router { // add this in a second
 	// Photos ----------------------------------------------------------------
 	router.HandleFunc("/api/trips/{TripId}/photos", getPhotosHandlerByTrip(photosService, tripsService)).Methods("GET")
 	router.HandleFunc("/api/events/{EventId}/photos", getPhotosHandlerByEvent(photosService, eventsService)).Methods("GET")
-	// router.HandleFunc("/api/photos", addPhotoHandler(photosService)).Methods("POST")
+	router.HandleFunc("/api/photos", addPhotoHandler(photosService, tripsService, eventsService)).Methods("POST")
 
 	return router
 }
