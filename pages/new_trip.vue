@@ -11,13 +11,13 @@
     </v-row>
     <v-row>
       <v-col cols="6">
-        <v-row>
+        <v-row :class="this.$vuetify.breakpoint.sm ? 'pl-3' : ''">
           <v-text-field v-model="location" label="Location" solo></v-text-field>
         </v-row>
         <v-row>
-          <!-- Import Google Map Component -->
+          <!-- TODO: Import Google Map Component -->
         </v-row>
-        <v-row>
+        <v-row :class="this.$vuetify.breakpoint.sm ? 'pl-3' : ''">
           <v-dialog
             ref="dialog1"
             v-model="modal_start"
@@ -52,7 +52,7 @@
             </v-date-picker>
           </v-dialog>
         </v-row>
-        <v-row>
+        <v-row :class="this.$vuetify.breakpoint.sm ? 'pl-3' : ''">
           <v-dialog
             ref="dialog2"
             v-model="modal_end"
@@ -85,7 +85,6 @@
         </v-row>
       </v-col>
       <v-col cols="6">
-        <!-- TODO: Mobile formatting of svg -->
         <img src="/images/new_trip.svg" width="75%" height="75%" />
       </v-col>
     </v-row>
