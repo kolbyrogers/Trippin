@@ -82,7 +82,7 @@ export default {
       this.$router.push('/trips/' + id)
     },
   },
-  async beforeMount() {
+  async mounted() {
     await this.getTrips()
   },
   computed: {
