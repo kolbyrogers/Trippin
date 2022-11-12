@@ -18,9 +18,23 @@
           <!-- Import Google Map Component -->
         </v-row>
         <v-row>
-          <v-dialog ref="dialog1" v-model="modal_start" :return-value.sync="date_start" persistent width="290px">
+          <v-dialog
+            ref="dialog1"
+            v-model="modal_start"
+            :return-value.sync="date_start"
+            persistent
+            width="290px"
+          >
             <template v-slot:activator="{ on, attrs }">
-              <v-text-field outlined dense v-model="date_start" label="Start Date" readonly v-bind="attrs" v-on="on">
+              <v-text-field
+                outlined
+                dense
+                v-model="date_start"
+                label="Start Date"
+                readonly
+                v-bind="attrs"
+                v-on="on"
+              >
               </v-text-field>
             </template>
             <v-date-picker v-model="date_start" scrollable>
@@ -28,7 +42,11 @@
               <v-btn text color="primary" @click="modal_start = false">
                 Cancel
               </v-btn>
-              <v-btn text color="primary" @click="$refs.dialog1.save(date_start)">
+              <v-btn
+                text
+                color="primary"
+                @click="$refs.dialog1.save(date_start)"
+              >
                 OK
               </v-btn>
             </v-date-picker>
@@ -36,9 +54,23 @@
         </v-row>
         <!-- TODO: Add a checker to make sure end date is AFTER start date. Format inputs -->
         <v-row>
-          <v-dialog ref="dialog2" v-model="modal_end" :return-value.sync="date_end" persistent width="290px">
+          <v-dialog
+            ref="dialog2"
+            v-model="modal_end"
+            :return-value.sync="date_end"
+            persistent
+            width="290px"
+          >
             <template v-slot:activator="{ on, attrs }">
-              <v-text-field outlined dense v-model="date_end" label="End Date" readonly v-bind="attrs" v-on="on">
+              <v-text-field
+                outlined
+                dense
+                v-model="date_end"
+                label="End Date"
+                readonly
+                v-bind="attrs"
+                v-on="on"
+              >
               </v-text-field>
             </template>
             <v-date-picker v-model="date_end" scrollable>
@@ -55,11 +87,17 @@
       </v-col>
       <v-col cols="6">
         <!-- TODO: Mobile formatting of svg -->
-        <img src="/images/new_trip.svg" />
+        <img src="/images/new_trip.svg" width="75%" height="75%" />
       </v-col>
     </v-row>
     <v-row justify="center">
-      <v-btn color="primary" class="white--text" @click="createTrip">Create</v-btn>
+      <v-btn
+        color="primary"
+        class="white--text"
+        @click="createTrip"
+        :disabled="!location || !date_start || !date_end"
+        >Create</v-btn
+      >
     </v-row>
   </v-container>
 </template>
@@ -68,7 +106,7 @@
 export default {
   data() {
     return {
-      location: "",
+      location: '',
       modal_start: false,
       modal_end: false,
       date_start: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
@@ -86,31 +124,38 @@ export default {
       this.$router.go(-1)
     },
     createTrip: async function () {
-      let response = await this.$axios.get('https://api.unsplash.com/photos/random/?client_id=' + this.$config.unsplashID + '&query=' + this.location + '&orientation=landscape')
+      let response = await this.$axios.get(
+        'https://api.unsplash.com/photos/random/?client_id=' +
+          this.$config.unsplashID +
+          '&query=' +
+          this.location +
+          '&orientation=landscape'
+      )
       let responseURL = response.data.urls.regular
-      console.log(responseURL);
+      console.log(responseURL)
 
       const data = {
-        'id': "",
-        'location': this.location,
-        'startDate': this.date_start,
-        'endDate': this.date_end,
-        'editors': [],
-        'viewers': [],
-        'imageURL': responseURL,
+        id: '',
+        location: this.location,
+        startDate: this.date_start,
+        endDate: this.date_end,
+        editors: [],
+        viewers: [],
+        imageURL: responseURL,
       }
-      console.log("Sending trip:", data);
-      this.$axios.post('http://localhost:8080/api/trips', data, {
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
+      console.log('Sending trip:', data)
+      this.$axios
+        .post('http://localhost:8080/api/trips', data, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
         .then(function (response) {
-          console.log(response);
+          console.log(response)
         })
         .catch(function (error) {
-          console.log(error);
-        });
+          console.log(error)
+        })
     },
   },
   print() {
