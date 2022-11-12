@@ -15,7 +15,11 @@
         </v-btn>
       </v-col>
     </v-row>
-    <h1>Trip Location</h1>
+    <h1>{{ trip.location }}</h1>
+    <p>{{ trip.startDate }} - {{ trip.endDate }}</p>
+    <div v-if="!eventsPlanned">
+      <h2 class="pt-6">No Events Planned</h2>
+    </div>
     <v-row justify="center" v-for="event in events" :key="event.id">
       <Event :event="event"></Event>
     </v-row>
@@ -37,7 +41,7 @@ export default {
   methods: {
     getEvents: async function () {
       const that = this;
-      this.$axios.get('http://localhost:8080/api/events/' + this.$route.params.trips, {
+      this.$axios.get('http://localhost:8080/api/events/trips/' + this.$route.params.trips, {
         headers: {
           'Content-Type': 'application/json',
         }
@@ -75,8 +79,13 @@ export default {
       this.$router.go(-1)
     },
   },
+  computed: {
+    eventsPlanned() {
+      return this.events.length > 0 ? true : false
+    },
+  },
   async beforeMount() {
-    // await this.getTrip(this.$route.params.trips);
+    await this.getTrip(this.$route.params.trips);
     await this.getEvents()
   },
 }
