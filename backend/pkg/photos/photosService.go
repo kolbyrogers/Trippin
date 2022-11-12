@@ -2,13 +2,13 @@ package photos
 
 import (
 	"context"
-	"fmt"
 
 	"cloud.google.com/go/firestore"
 )
 
 type Service interface {
 	GetPhotosByEventId(ID string) (Photos, error)
+	GetPhotosByTripId(ID string) (Photos, error)
 	// AddPhoto(Photo) (string, error)
 }
 
@@ -41,13 +41,35 @@ func (s *service) GetPhotosByEventId(ID string) (Photos, error) {
 
 	for _, doc := range resp {
 		var photo Photo
-		fmt.Println(doc.Data())
 		data := doc.Data()
 		photo = Photo{
 			ID:        doc.Ref.ID,
 			TripId:    data["tripId"].(string),
 			EventId:   data["eventId"].(string),
-			Url:       data["url"].(string),
+			Url:       data["photoUrl"].(string),
+		}
+		listOfAllPhotos = append(listOfAllPhotos, photo)
+	}
+
+	return listOfAllPhotos, nil
+}
+
+func (s *service) GetPhotosByTripId(ID string) (Photos, error) {
+	listOfAllPhotos := Photos{}
+
+	resp, err := s.DB.Collection("photos").Where("tripId", "==", ID).Documents(s.ctx).GetAll()
+	if err != nil {
+		return listOfAllPhotos, err
+	}
+
+	for _, doc := range resp {
+		var photo Photo
+		data := doc.Data()
+		photo = Photo{
+			ID:        doc.Ref.ID,
+			TripId:    data["tripId"].(string),
+			EventId:   data["eventId"].(string),
+			Url:       data["photoUrl"].(string),
 		}
 		listOfAllPhotos = append(listOfAllPhotos, photo)
 	}
