@@ -51,24 +51,26 @@ export default {
     return {
       activeView: 0,
       sharedTrips: false,
-      trips: [
-        {
-          id: "G5CxBh4HjQWCHaVjlAXF",
-          location: 'New York',
-          start_date: '2020-01-01',
-          image: '/images/snorkel.jpg',
-        },
-        {
-          id: 456,
-          location: 'Bali',
-          start_date: '2022-01-01',
-          image: '/images/snorkel.jpg',
-        },
-      ],
+      trips: [],
       past_trips: [],
     }
   },
   methods: {
+    getTrips: async function () {
+      const that = this;
+      this.$axios.get('http://localhost:8080/api/trips/' + this.$store.state.user.uid, {
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      })
+        .then(function (response) {
+          console.log(response.data);
+          that.trips = response.data;
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
     changeTripPerspective() {
       this.sharedTrips = !this.sharedTrips
     },
@@ -79,6 +81,9 @@ export default {
       console.log('clicked trip', id)
       this.$router.push('/trips/' + id)
     },
+  },
+  async beforeMount() {
+    await this.getTrips()
   },
   computed: {
     tripsPlanned() {

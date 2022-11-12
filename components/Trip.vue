@@ -1,6 +1,6 @@
 <template>
     <v-card width="100%" class="mb-5 text-left">
-        <v-img class="trip-img" @click="directToTrip(trip.id)" :src="trip.image" height="300px"
+        <v-img class="trip-img" @click="directToTrip(trip.id)" :src="trip.imageURL" height="300px"
             gradient="to top left, rgba(100,115,201,.33), rgba(25,32,72,.7)">
             <h2 class="pa-4 white--text">{{ trip.location }}</h2>
         </v-img>
