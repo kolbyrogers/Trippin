@@ -53,7 +53,7 @@ export default {
       sharedTrips: false,
       trips: [
         {
-          id: 123,
+          id: "G5CxBh4HjQWCHaVjlAXF",
           location: 'New York',
           start_date: '2020-01-01',
           image: '/images/snorkel.jpg',
