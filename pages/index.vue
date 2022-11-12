@@ -29,9 +29,29 @@ export default {
         .catch(function (err) {
           console.log(err)
         }).then((user) => {
+          this.createUser(this.$store.state.user)
           $nuxt.$router.push('/trips')
         })
-    }
+    },
+    createUser: async function (user) {
+      const data = {
+        'id': user.uid,
+        'displayName': user.displayName,
+        'email': user.email,
+      }
+      console.log("Sending user:", JSON.stringify(data));
+      this.$axios.post('http://localhost:8080/api/users', data, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
   }
 }
 </script>
