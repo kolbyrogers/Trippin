@@ -6,44 +6,51 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/kolbyrogers/Trippin/backend/pkg/events"
+	"github.com/kolbyrogers/Trippin/backend/pkg/photos"
 	"github.com/kolbyrogers/Trippin/backend/pkg/trips"
 	"github.com/kolbyrogers/Trippin/backend/pkg/users"
 )
 
-func InitializeHandlers(usersService users.Service, tripsService trips.Service, eventsService events.Service) *mux.Router { // add this in a second r reading.Service, w writing.Service
+type Services struct {
+	UsersService users.Service
+	TripsService trips.Service
+	EventsService events.Service
+	PhotosService photos.Service
+}
 
-	// tempuser := users.User{
-	// 	ID:        "1",
-	// 	FirstName: "Kolby",
-	// 	LastName:  "Rogers",
-	// 	Email:     "kolbyrogers1@gmail.com",
-	// }
+func InitializeHandlers(services Services) *mux.Router { // add this in a second r reading.Service, w writing.Service
 
-	// id := "1"
+	usersService := services.UsersService
+	tripsService := services.TripsService
+	eventsService := services.EventsService
+	photosService := services.PhotosService
 
 	router := mux.NewRouter()
 	router.HandleFunc("/healthcheck", healthcheck()) //.Methods("GET")
 
 	// Users ----------------------------------------------------------------
-	// router.HandleFunc("/users", getUserHandler(usersService)).Methods("GET")
-	// router.HandleFunc("/users", addUserHandler(usersService)).Methods("POST")
-
 	router.HandleFunc("/api/users", PreflightAddResourceHandler).Methods("OPTIONS")
 	router.HandleFunc("/api/users/{UserId}", getUserHandler(usersService)).Methods("GET")
 	router.HandleFunc("/api/users", addUserHandler(usersService)).Methods("POST")
 
 	// Trips ----------------------------------------------------------------
 	router.HandleFunc("/api/trips", PreflightAddResourceHandler).Methods("OPTIONS")
-	router.HandleFunc("/api/trips/{UserId}", getTripHandler(tripsService)).Methods("GET")
+	router.HandleFunc("/api/trips/{UserId}", getTripsHandler(tripsService)).Methods("GET")
 	router.HandleFunc("/api/trips", addTripHandler(tripsService)).Methods("POST")
+	router.HandleFunc("/api/trips/{TripId}", getTripHandler(tripsService)).Methods("GET")
 	router.HandleFunc("/api/trips/{TripId}", updateTripHandler(tripsService, usersService)).Methods("PUT")
 	router.HandleFunc("/api/trips/{TripId}", PreflightAddResourceHandler).Methods("OPTIONS")
-
+	
 
 	// Events ----------------------------------------------------------------
 	router.HandleFunc("/api/events", PreflightAddResourceHandler).Methods("OPTIONS")
 	router.HandleFunc("/api/events/{TripId}", getEventsHandler(eventsService)).Methods("GET")
-	router.HandleFunc("/api/events", addEventHandler(eventsService)).Methods("POST")
+	// get event by id
+	router.HandleFunc("/api/events", addEventHandler(eventsService)).Methods("POST") // want to change this endpoint
+
+	// Photos ----------------------------------------------------------------
+	router.HandleFunc("/api/trips/{TripId}/photos", getPhotosHandler(photosService)).Methods("GET")
+	// router.HandleFunc("/api/photos", addPhotoHandler(photosService)).Methods("POST")
 
 	return router
 }

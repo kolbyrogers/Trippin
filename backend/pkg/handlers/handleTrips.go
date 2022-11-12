@@ -12,7 +12,7 @@ import (
 )
 
 
-func getTripHandler(tripsService trips.Service) func(w http.ResponseWriter, r *http.Request) {
+func getTripsHandler(tripsService trips.Service) func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
 		SetHeaders(w)
 
@@ -28,6 +28,22 @@ func getTripHandler(tripsService trips.Service) func(w http.ResponseWriter, r *h
 		w.WriteHeader(http.StatusOK)
 		// json.NewEncoder(w).Encode("Hit getUsersHandler")
 		json.NewEncoder(w).Encode(trips)
+	}
+}
+
+func getTripHandler(tripsService trips.Service) func(w http.ResponseWriter, r *http.Request) {
+	return func(w http.ResponseWriter, r *http.Request) {
+		SetHeaders(w)
+
+		tripId := mux.Vars(r)["TripId"]
+		trip, err := tripsService.GetTrip(tripId)
+		if err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
+			json.NewEncoder(w).Encode(err)
+			return
+		}
+		w.WriteHeader(http.StatusOK)
+		json.NewEncoder(w).Encode(trip)
 	}
 }
 

@@ -11,6 +11,7 @@ import (
 
 	"github.com/kolbyrogers/Trippin/backend/pkg/events"
 	"github.com/kolbyrogers/Trippin/backend/pkg/handlers"
+	"github.com/kolbyrogers/Trippin/backend/pkg/photos"
 	"github.com/kolbyrogers/Trippin/backend/pkg/trips"
 	"github.com/kolbyrogers/Trippin/backend/pkg/users"
 )
@@ -25,9 +26,17 @@ func main() {
 	usersService := users.NewService(*DB, ctx)
 	tripsService := trips.NewService(*DB, ctx)
 	eventsService := events.NewService(*DB, ctx)
+	photosService := photos.NewService(*DB, ctx)
+
+	services := handlers.Services{
+		UsersService: usersService,
+		TripsService: tripsService,
+		EventsService: eventsService,
+		PhotosService: photosService,
+	}
 
 	fmt.Println("Starting Server on port 8080")
-	router := handlers.InitializeHandlers(usersService, tripsService, eventsService)
+	router := handlers.InitializeHandlers(services)
 	log.Fatal(http.ListenAndServe(":8080", router))
 }
 

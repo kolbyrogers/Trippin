@@ -7,13 +7,15 @@ import (
 	firestore "cloud.google.com/go/firestore"
 )
 
-type Repository interface {
-	GetTrips(ID string) ([]Trip, error)
-	AddTrip(Trip) (string, error)
-	UpdateTrip(Trip) (Trip, error)
-}
+// type Repository interface {
+// 	GetTrip(ID string) (Trip, error)
+// 	GetTrips(ID string) ([]Trip, error)
+// 	AddTrip(Trip) (string, error)
+// 	UpdateTrip(Trip) (Trip, error)
+// }
 
 type Service interface {
+	GetTrip(ID string) (Trip, error)
 	GetTrips(ID string) ([]Trip, error)
 	AddTrip(Trip) (string, error)
 	UpdateTrip(Trip) (Trip, error)
@@ -39,6 +41,25 @@ type Trip struct {
 
 func NewService(DB firestore.Client, ctx context.Context) *service {
 	return &service{Trip{}, DB, ctx}
+}
+
+func (s *service) GetTrip(ID string) (Trip, error) {
+	dbResponse, err := s.DB.Collection("trips").Doc(ID).Get(s.ctx)
+	if err != nil {
+		fmt.Println(err)
+		return Trip{}, err
+	}
+	data := dbResponse.Data()
+	newTrip := Trip{
+		ID: data["id"].(string),
+		Location: data["location"].(string),
+		StartDate: data["startDate"].(string),
+		EndDate: data["endDate"].(string),
+		Editors: data["editors"].([]interface{}),
+		Viewers: data["viewers"].([]interface{}),
+		ImageURL: data["imageURL"].(string),
+	}
+	return newTrip, nil
 }
 
 func (s *service) GetTrips(ID string) ([]Trip, error) {
