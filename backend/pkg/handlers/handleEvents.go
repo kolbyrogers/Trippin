@@ -63,3 +63,22 @@ func addEventHandler(eventsService events.Service) func(w http.ResponseWriter, r
 		json.NewEncoder(w).Encode(createdEvent)
 	}
 }
+
+func getEventHandler(eventsService events.Service) func(w http.ResponseWriter, r *http.Request) {
+	return func(w http.ResponseWriter, r *http.Request) {
+		SetHeaders(w)
+
+		ID := mux.Vars(r)["EventId"]
+		// fmt.Println(ID)
+		event, error := eventsService.GetEvent(ID)
+		if error != nil {
+			w.WriteHeader(http.StatusInternalServerError)
+			json.NewEncoder(w).Encode(error)
+			return
+		}
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusOK)
+		// json.NewEncoder(w).Encode("Hit getUsersHandler")
+		json.NewEncoder(w).Encode(event)
+	}
+}

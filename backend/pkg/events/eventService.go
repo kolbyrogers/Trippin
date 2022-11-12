@@ -7,13 +7,14 @@ import (
 	"cloud.google.com/go/firestore"
 )
 
-type Repository interface {
-	GetEvents(ID string) (Events, error)
-	AddEvent(Event) (string, error)
-}
+// type Repository interface {
+// 	GetEvents(ID string) (Events, error)
+// 	AddEvent(Event) (string, error)
+// }
 
 type Service interface {
 	GetEvents(ID string) (Events, error)
+	GetEvent(ID string) (Event, error)
 	AddEvent(Event) (string, error)
 
 }
@@ -64,6 +65,27 @@ func (s *service) GetEvents(ID string) (Events, error) {
 	}
 
 	return listOfAllEvents, nil
+}
+
+func (s *service) GetEvent(ID string) (Event, error) {
+	dbResponse, err := s.DB.Collection("events").Doc(ID).Get(s.ctx)
+	if err != nil {
+		fmt.Println(err)
+		return Event{}, err
+	}
+	if !dbResponse.Exists() {
+		return Event{}, fmt.Errorf("event does not exist")
+	}
+	data := dbResponse.Data()
+	newEvent := Event{
+		ID:        ID,
+		Name:      data["name"].(string),
+		Location:  data["location"].(string),
+		Date:      data["date"].(string),
+		Time:      data["time"].(string),
+		TripId:    data["tripID"].(string),
+	}
+	return newEvent, nil
 }
 
 func (s *service) AddEvent(event Event) (string, error) {

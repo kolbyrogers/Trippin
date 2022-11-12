@@ -44,8 +44,8 @@ func InitializeHandlers(services Services) *mux.Router { // add this in a second
 
 	// Events ----------------------------------------------------------------
 	router.HandleFunc("/api/events", PreflightAddResourceHandler).Methods("OPTIONS")
-	router.HandleFunc("/api/events/{TripId}", getEventsHandler(eventsService)).Methods("GET")
-	// get event by id
+	router.HandleFunc("/api/events/trips/{TripId}", getEventsHandler(eventsService)).Methods("GET") // updated this one
+	router.HandleFunc("/api/events/{EventId}", addEventHandler(eventsService)).Methods("GET")
 	router.HandleFunc("/api/events", addEventHandler(eventsService)).Methods("POST") // want to change this endpoint
 
 	// Photos ----------------------------------------------------------------
