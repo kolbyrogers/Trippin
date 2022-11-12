@@ -51,13 +51,13 @@ func (s *service) GetTrip(ID string) (Trip, error) {
 	}
 	data := dbResponse.Data()
 	newTrip := Trip{
-		ID: data["id"].(string),
-		Location: data["location"].(string),
+		ID:        ID,
+		Location:  data["location"].(string),
 		StartDate: data["startDate"].(string),
-		EndDate: data["endDate"].(string),
-		Editors: data["editors"].([]interface{}),
-		Viewers: data["viewers"].([]interface{}),
-		ImageURL: data["imageURL"].(string),
+		EndDate:   data["endDate"].(string),
+		Editors:   data["editors"].([]interface{}),
+		Viewers:   data["viewers"].([]interface{}),
+		ImageURL:  data["imageURL"].(string),
 	}
 	return newTrip, nil
 }

@@ -18,6 +18,9 @@ func getTripsHandler(tripsService trips.Service) func(w http.ResponseWriter, r *
 
 		ID := mux.Vars(r)["UserId"]
 		// fmt.Println(ID)
+
+		// check to see if user exists
+
 		trips, error := tripsService.GetTrips(ID)
 		if error != nil {
 			w.WriteHeader(http.StatusInternalServerError)
