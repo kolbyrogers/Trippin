@@ -87,8 +87,8 @@ func (s *service) GetUserByEmail(email string) (User, error) {
 			Email:     data["email"].(string),
 		}
 	
-	fmt.Println(data)
-	return user, nil
+		// fmt.Println(data)
+		return user, nil
 	}
 	return User{}, nil
 }
