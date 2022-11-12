@@ -29,6 +29,7 @@ func getUserHandler(usersService users.Service) func(w http.ResponseWriter, r *h
 
 func addUserHandler(usersService users.Service) func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
+		enableCors(&w)
 		var newUser users.User
 
 		bodyBytes, err := ioutil.ReadAll(r.Body)
@@ -65,7 +66,6 @@ func addUserHandler(usersService users.Service) func(w http.ResponseWriter, r *h
 			return
 		}
 		w.Header().Set("Content-Type", "application/json")
-		enableCors(&w)
 		w.WriteHeader(http.StatusCreated)
 		json.NewEncoder(w).Encode("created User: " + createdUser)
 	}
