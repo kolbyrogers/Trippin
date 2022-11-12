@@ -83,7 +83,7 @@ func addTripHandler(tripsService trips.Service) func(w http.ResponseWriter, r *h
 		}
 		// fmt.Println(newTrip)
 
-		createdTrip, err := tripsService.AddTrip(newTrip)
+		_, err = tripsService.AddTrip(newTrip)
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			json.NewEncoder(w).Encode(err)
@@ -91,7 +91,7 @@ func addTripHandler(tripsService trips.Service) func(w http.ResponseWriter, r *h
 		}
 
 		w.WriteHeader(http.StatusCreated)
-		json.NewEncoder(w).Encode(createdTrip)
+		json.NewEncoder(w).Encode(newTrip)
 	}
 }
 
