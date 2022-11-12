@@ -7,13 +7,14 @@
         </v-btn>
       </v-col>
     </v-row>
-    <v-tabs centered class="pb-4">
+    <v-tabs centered class="pb-4" v-model="activeView">
       <v-tabs-slider color="primary"></v-tabs-slider>
       <v-tab>My Trips</v-tab>
       <v-tab>Shared With Me</v-tab>
     </v-tabs>
     <v-row>
-      <h1 class="trip-header">Current Trips</h1>
+      <h1 v-if="activeView" class="trip-header">Shared Trips</h1>
+      <h1 v-else class="trip-header">Current Trips</h1>
     </v-row>
     <v-divider class="thicc"></v-divider>
     <div v-if="tripsPlanned">
@@ -26,9 +27,9 @@
         <h3>You have no trips planned, plan a trip today!</h3>
       </v-row>
     </div>
-
     <v-row class="mt-4">
-      <h1 class="trip-header">Past Trips</h1>
+      <h1 v-if="activeView" class="trip-header">Previous Shared Trips</h1>
+      <h1 v-else class="trip-header">Past Trips</h1>
     </v-row>
     <v-divider class="thicc"></v-divider>
     <div v-if="pastTripsFinished">
@@ -48,20 +49,21 @@
 export default {
   data() {
     return {
+      activeView: 0,
       sharedTrips: false,
       trips: [
         {
           id: 123,
-          location: "New York",
-          start_date: "2020-01-01",
-          image: "/images/snorkel.jpg"
+          location: 'New York',
+          start_date: '2020-01-01',
+          image: '/images/snorkel.jpg',
         },
         {
           id: 456,
-          location: "Bali",
-          start_date: "2022-01-01",
-          image: "/images/snorkel.jpg"
-        }
+          location: 'Bali',
+          start_date: '2022-01-01',
+          image: '/images/snorkel.jpg',
+        },
       ],
       past_trips: [],
     }
@@ -74,7 +76,7 @@ export default {
       this.$router.push('/new_trip')
     },
     directToTrip(id) {
-      console.log("clicked trip", id);
+      console.log('clicked trip', id)
       this.$router.push('/trips/' + id)
     },
   },
