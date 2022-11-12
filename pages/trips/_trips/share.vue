@@ -22,13 +22,7 @@
       <v-checkbox label="Has Edit Access" v-model="can_edit"></v-checkbox>
     </v-row>
     <v-row justify="center" class="pt-2">
-      <v-btn
-        color="primary"
-        class="color--text"
-        @click="shareTrip"
-        :disabled="validEmail"
-        >Share</v-btn
-      >
+      <v-btn color="primary" class="color--text" @click="shareTrip" :disabled="validEmail">Share</v-btn>
     </v-row>
     <v-row justify="center">
       <img src="/images/share.svg" />
@@ -45,8 +39,23 @@ export default {
     }
   },
   methods: {
-    shareTrip() {
-      this.goBack()
+    shareTrip: async function () {
+      const data = {
+        email: this.email,
+        editor: this.can_edit,
+      }
+      console.log("Sending update:", data);
+      this.$axios.put('http://localhost:8080/api/trips/' + this.$route.params.trips, data, {
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      })
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
     },
     goBack() {
       this.$router.go(-1)
@@ -64,4 +73,6 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+
+</style>

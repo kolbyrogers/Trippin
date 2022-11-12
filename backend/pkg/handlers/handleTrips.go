@@ -65,6 +65,7 @@ func addTripHandler(tripsService trips.Service) func(w http.ResponseWriter, r *h
 func updateTripHandler(tripsService trips.Service, usersService users.Service) func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
 		tripId := mux.Vars(r)["TripId"]
+		w.Header().Set("Access-Control-Allow-Origin", "*")
 
 		type ShareUser struct {
 			Email string `json:"email"`
@@ -114,7 +115,6 @@ func updateTripHandler(tripsService trips.Service, usersService users.Service) f
 			return
 		}
 		w.Header().Set("Content-Type", "application/json")
-		w.Header().Set("Access-Control-Allow-Origin", "*")
 		w.WriteHeader(http.StatusOK)
 		json.NewEncoder(w).Encode(clearedTrip)
 	}
