@@ -37,7 +37,7 @@
               >
               </v-text-field>
             </template>
-            <v-date-picker v-model="date_start" scrollable>
+            <v-date-picker v-model="date_start" scrollable :min="current_day">
               <v-spacer></v-spacer>
               <v-btn text color="primary" @click="modal_start = false">
                 Cancel
@@ -52,7 +52,6 @@
             </v-date-picker>
           </v-dialog>
         </v-row>
-        <!-- TODO: Add a checker to make sure end date is AFTER start date. Format inputs -->
         <v-row>
           <v-dialog
             ref="dialog2"
@@ -73,7 +72,7 @@
               >
               </v-text-field>
             </template>
-            <v-date-picker v-model="date_end" scrollable>
+            <v-date-picker v-model="date_end" scrollable :min="date_start">
               <v-spacer></v-spacer>
               <v-btn text color="primary" @click="modal_end = false">
                 Cancel
@@ -95,7 +94,13 @@
         color="primary"
         class="white--text"
         @click="createTrip"
-        :disabled="!location || !date_start || !date_end"
+        :disabled="
+          !location ||
+          !(
+            (date_start == current_day && date_end == current_tomorrow) ||
+            date_end != current_tomorrow
+          )
+        "
         >Create</v-btn
       >
     </v-row>
@@ -107,12 +112,20 @@ export default {
   data() {
     return {
       location: '',
+      current_day: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
+        .toISOString()
+        .substr(0, 10),
       modal_start: false,
       modal_end: false,
       date_start: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
         .toISOString()
         .substr(0, 10),
       date_end: new Date(
+        Date.now() - new Date().getTimezoneOffset() * 60000 + 86400000
+      )
+        .toISOString()
+        .substr(0, 10),
+      current_tomorrow: new Date(
         Date.now() - new Date().getTimezoneOffset() * 60000 + 86400000
       )
         .toISOString()
