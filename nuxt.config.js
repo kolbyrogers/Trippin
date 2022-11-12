@@ -2,7 +2,7 @@ import colors from 'vuetify/es5/util/colors'
 
 export default {
   publicRuntimeConfig: {
-    unsplashID: process.env.UNSPLASH_CLIENT_ID
+    unsplashID: process.env.UNSPLASH_CLIENT_ID,
   },
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -55,6 +55,7 @@ export default {
           appId: '1:949476544162:web:aa0701e58fd2df1de151fb',
         },
         services: {
+          storage: true,
           auth: {
             persistence: 'local', // default
             initialize: {
