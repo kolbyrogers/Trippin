@@ -53,16 +53,9 @@ func (s *service) GetTrips(ID string) ([]Trip, error) {
 		fmt.Println(err)
 		return listOfAllTrips, err
 	}
-	// combine the two slices
-
-	fmt.Print(resp)
-	data := resp[0].Data()
-	fmt.Print(data)
+	
 	// add a new trip to the trips collection
-
-
 	for _, doc := range resp {
-		fmt.Println(doc.Data())
 		var trip Trip
 		trip.ID = doc.Ref.ID
 		trip.Location = doc.Data()["location"].(string)
@@ -75,11 +68,9 @@ func (s *service) GetTrips(ID string) ([]Trip, error) {
 			trip.Viewers = append(trip.Viewers, viewer.(string))
 		}
 		trip.ImageURL = doc.Data()["imageURL"].(string)
-		fmt.Println(trip.Location)
 		listOfAllTrips = append(listOfAllTrips, trip)
 	}
 	for _, doc := range resp2 {
-		fmt.Println(doc.Data())
 		var trip Trip
 		trip.ID = doc.Ref.ID
 		trip.Location = doc.Data()["location"].(string)
@@ -92,7 +83,6 @@ func (s *service) GetTrips(ID string) ([]Trip, error) {
 			trip.Viewers = append(trip.Viewers, viewer.(string))
 		}
 		trip.ImageURL = doc.Data()["imageURL"].(string)
-		fmt.Println(trip.Location)
 		listOfAllTrips = append(listOfAllTrips, trip)
 	}
 	
@@ -116,7 +106,6 @@ func (s *service) GetOneTrip(ID string) (Trip, error) {
 		Viewers: data["viewers"].([]interface{}),
 		ImageURL: data["imageURL"].(string),
 	}
-	// fmt.Print(data)
 	return trip, nil
 }
 

@@ -48,8 +48,6 @@ func (s *service) GetEvents(ID string) (Events, error) {
 		return listOfAllEvents, err
 	}
 
-	fmt.Println(resp)
-
 	for _, doc := range resp {
 		var event Event
 		fmt.Println(doc.Data())

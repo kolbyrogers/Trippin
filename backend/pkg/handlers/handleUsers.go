@@ -2,7 +2,6 @@ package handlers
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"net/http"
 
@@ -59,7 +58,7 @@ func addUserHandler(usersService users.Service) func(w http.ResponseWriter, r *h
 		}
 
 
-		fmt.Println("attempting to create user with data: ", newUser)
+		// fmt.Println("attempting to create user with data: ", newUser)
 
 		createdUser, err := usersService.AddUser(newUser)
 

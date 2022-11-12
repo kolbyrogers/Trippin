@@ -50,15 +50,16 @@ func (s *service) GetUser(ID string) (User, error) {
 		DisplayName: data["displayName"].(string),
 		Email:     data["email"].(string),
 	}
-	fmt.Println(data)
 
-	
 	return user, nil
 }
 
 func (s *service) AddUser(user User) (string, error) {
 
-	// check for user exists
+	currentUser, _ := s.GetUserByEmail(user.Email)
+	if(currentUser.ID != ""){
+		return "user already exists", nil
+	}
 
 	_, err := s.DB.Collection("users").Doc(user.ID).Set(s.ctx, map[string]interface{}{
 		"displayName": user.DisplayName,
@@ -77,8 +78,7 @@ func (s *service) GetUserByEmail(email string) (User, error) {
 		fmt.Println(err)
 		return User{}, err
 	}
-	
-	// fmt.Print(resp)
+
 	if(len(resp) > 0){
 		data := resp[0].Data()
 		user := User{
@@ -86,8 +86,7 @@ func (s *service) GetUserByEmail(email string) (User, error) {
 			DisplayName: data["displayName"].(string),
 			Email:     data["email"].(string),
 		}
-	
-		// fmt.Println(data)
+
 		return user, nil
 	}
 	return User{}, nil

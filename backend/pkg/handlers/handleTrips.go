@@ -17,7 +17,7 @@ func getTripHandler(tripsService trips.Service) func(w http.ResponseWriter, r *h
 		SetHeaders(w)
 
 		ID := mux.Vars(r)["UserId"]
-		fmt.Println(ID)
+		// fmt.Println(ID)
 		trips, error := tripsService.GetTrips(ID)
 		if error != nil {
 			w.WriteHeader(http.StatusInternalServerError)
@@ -51,7 +51,7 @@ func addTripHandler(tripsService trips.Service) func(w http.ResponseWriter, r *h
 			json.NewEncoder(w).Encode("Error unmarshalling request body " + err.Error())
 			return
 		}
-		fmt.Println(newTrip)
+		// fmt.Println(newTrip)
 
 		createdTrip, err := tripsService.AddTrip(newTrip)
 		if err != nil {
@@ -68,7 +68,7 @@ func addTripHandler(tripsService trips.Service) func(w http.ResponseWriter, r *h
 func updateTripHandler(tripsService trips.Service, usersService users.Service) func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
 		SetHeaders(w)
-		
+
 		tripId := mux.Vars(r)["TripId"]
 
 		type ShareUser struct {

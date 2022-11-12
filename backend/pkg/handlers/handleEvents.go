@@ -2,7 +2,6 @@ package handlers
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"net/http"
 
@@ -15,7 +14,7 @@ func getEventsHandler(eventsService events.Service) func(w http.ResponseWriter, 
 		SetHeaders(w)
 
 		ID := mux.Vars(r)["TripId"]
-		fmt.Println(ID)
+		// fmt.Println(ID)
 		events, error := eventsService.GetEvents(ID)
 		if error != nil {
 			w.WriteHeader(http.StatusInternalServerError)
@@ -41,18 +40,16 @@ func addEventHandler(eventsService events.Service) func(w http.ResponseWriter, r
 			json.NewEncoder(w).Encode("Error reading request body " + err.Error())
 			return
 		}
-		fmt.Println(string(bodyBytes[:]))
+		// fmt.Println(string(bodyBytes[:]))
 
 		// convert bodyBytes to a NewUser struct
 		err = json.Unmarshal(bodyBytes, &newEvent)
-
-		// &userStruct.Email = string(bodyBytes["email"])
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			json.NewEncoder(w).Encode("Error unmarshalling request body " + err.Error())
 			return
 		}
-		fmt.Println(newEvent)
+		// fmt.Println(newEvent)
 
 		createdEvent, err := eventsService.AddEvent(newEvent)
 
