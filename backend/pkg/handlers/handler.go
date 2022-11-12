@@ -36,6 +36,9 @@ func InitializeHandlers(usersService users.Service, tripsService trips.Service, 
 	router.HandleFunc("/api/trips", PreflightAddResourceHandler).Methods("OPTIONS")
 	router.HandleFunc("/api/trips/{UserId}", getTripHandler(tripsService)).Methods("GET")
 	router.HandleFunc("/api/trips", addTripHandler(tripsService)).Methods("POST")
+	router.HandleFunc("/api/trips/{TripId}", updateTripHandler(tripsService, usersService)).Methods("PUT")
+	router.HandleFunc("/api/trips/{TripId}", PreflightAddResourceHandler).Methods("OPTIONS")
+
 
 	// Events ----------------------------------------------------------------
 	router.HandleFunc("/api/events", PreflightAddResourceHandler).Methods("OPTIONS")
@@ -47,10 +50,11 @@ func InitializeHandlers(usersService users.Service, tripsService trips.Service, 
 
 func PreflightAddResourceHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("PreflightAddResourceHandler")
-	w.Header().Set("Access-Control-Allow-Origin", "http://localhost:3000")
-	// w.Header().Set("Access-Control-Allow-Origin", "*")
+	// w.Header().Set("Access-Control-Allow-Origin", "http://localhost:3000")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, OPTIONS")
-	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+	w.Header().Set("Access-Control-Allow-Headers", "origin, content-type, accept, x-requested-with")
 	w.Header().Set("Access-Control-Max-Age", "86400")
 	w.WriteHeader(http.StatusNoContent)
+	return
 }

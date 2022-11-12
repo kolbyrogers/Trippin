@@ -139,7 +139,7 @@ export default {
         location: this.location,
         startDate: this.date_start,
         endDate: this.date_end,
-        editors: [],
+        editors: [this.$store.state.user.uid],
         viewers: [],
         imageURL: responseURL,
       }
