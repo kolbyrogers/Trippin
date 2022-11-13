@@ -64,12 +64,16 @@ export default {
         }
       })
         .then(function (response) {
-          console.log(response.data);
           that.trips = response.data;
+          that.filterTrips();
         })
         .catch(function (error) {
-          console.log(error);
+          console.error(error);
         });
+    },
+    filterTrips() {
+      this.past_trips = this.trips.filter(trip => trip.endDate < new Date().toISOString().slice(0, 10));
+      this.trips = this.trips.filter(trip => trip.endDate >= new Date().toISOString().slice(0, 10));
     },
     changeTripPerspective() {
       this.sharedTrips = !this.sharedTrips
@@ -78,7 +82,6 @@ export default {
       this.$router.push('/new_trip')
     },
     directToTrip(id) {
-      console.log('clicked trip', id)
       this.$router.push('/trips/' + id)
     },
   },
