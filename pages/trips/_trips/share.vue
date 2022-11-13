@@ -42,7 +42,6 @@ export default {
         email: this.email,
         editor: false,
       }
-      console.log("Sending update:", data);
       this.$axios.put('http://localhost:8080/api/trips/' + this.$route.params.trips, data, {
         headers: {
           'Content-Type': 'application/json',

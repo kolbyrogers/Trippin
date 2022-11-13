@@ -47,11 +47,10 @@ export default {
         }
       })
         .then(function (response) {
-          console.log(response.data);
           that.events = response.data;
         })
         .catch(function (error) {
-          console.log(error);
+          console.error(error);
         });
     },
     getTrip: async function () {
@@ -62,11 +61,10 @@ export default {
         }
       })
         .then(function (response) {
-          console.log(response.data);
           that.trip = response.data;
         })
         .catch(function (error) {
-          console.log(error);
+          console.error(error);
         });
     },
     directToNewEvent() {

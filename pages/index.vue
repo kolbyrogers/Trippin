@@ -27,15 +27,16 @@ export default {
       const provider = new $nuxt.$fireModule.auth.GoogleAuthProvider()
       this.$fire.auth.signInWithPopup(provider)
         .catch(function (err) {
-          console.log(err)
-        }).then((user) => {
+          console.error(err)
+        }).then((res) => {
           const newUser = {
-            uid: user.user.uid,
-            email: user.user.email,
-            displayName: user.user.displayName,
+            uid: res.user.uid,
+            email: res.user.email,
+            displayName: res.user.displayName,
           }
-          this.createUser(newUser)
-          $nuxt.$router.push('/trips')
+          this.createUser(newUser).then(() => {
+            this.$router.push('/trips')
+          })
         })
     },
     createUser: async function (user) {
@@ -44,17 +45,15 @@ export default {
         'displayName': user.displayName,
         'email': user.email,
       }
-      console.log("Sending user:", JSON.stringify(data));
       this.$axios.post('http://localhost:8080/api/users', data, {
         headers: {
           'Content-Type': 'application/json'
         }
       })
         .then(function (response) {
-          console.log(response);
         })
         .catch(function (error) {
-          console.log(error);
+          console.error(error);
         });
     },
   }

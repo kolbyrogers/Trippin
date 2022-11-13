@@ -18,23 +18,9 @@
           <!-- TODO: Import Google Map Component -->
         </v-row>
         <v-row :class="this.$vuetify.breakpoint.sm ? 'pl-3' : ''">
-          <v-dialog
-            ref="dialog1"
-            v-model="modal_start"
-            :return-value.sync="date_start"
-            persistent
-            width="290px"
-          >
+          <v-dialog ref="dialog1" v-model="modal_start" :return-value.sync="date_start" persistent width="290px">
             <template v-slot:activator="{ on, attrs }">
-              <v-text-field
-                outlined
-                dense
-                v-model="date_start"
-                label="Start Date"
-                readonly
-                v-bind="attrs"
-                v-on="on"
-              >
+              <v-text-field outlined dense v-model="date_start" label="Start Date" readonly v-bind="attrs" v-on="on">
               </v-text-field>
             </template>
             <v-date-picker v-model="date_start" scrollable :min="current_day">
@@ -42,34 +28,16 @@
               <v-btn text color="primary" @click="modal_start = false">
                 Cancel
               </v-btn>
-              <v-btn
-                text
-                color="primary"
-                @click="$refs.dialog1.save(date_start)"
-              >
+              <v-btn text color="primary" @click="$refs.dialog1.save(date_start)">
                 OK
               </v-btn>
             </v-date-picker>
           </v-dialog>
         </v-row>
         <v-row :class="this.$vuetify.breakpoint.sm ? 'pl-3' : ''">
-          <v-dialog
-            ref="dialog2"
-            v-model="modal_end"
-            :return-value.sync="date_end"
-            persistent
-            width="290px"
-          >
+          <v-dialog ref="dialog2" v-model="modal_end" :return-value.sync="date_end" persistent width="290px">
             <template v-slot:activator="{ on, attrs }">
-              <v-text-field
-                outlined
-                dense
-                v-model="date_end"
-                label="End Date"
-                readonly
-                v-bind="attrs"
-                v-on="on"
-              >
+              <v-text-field outlined dense v-model="date_end" label="End Date" readonly v-bind="attrs" v-on="on">
               </v-text-field>
             </template>
             <v-date-picker v-model="date_end" scrollable :min="date_start">
@@ -89,19 +57,13 @@
       </v-col>
     </v-row>
     <v-row justify="center">
-      <v-btn
-        color="primary"
-        class="white--text"
-        @click="createTrip"
-        :disabled="
-          !location ||
-          !(
-            (date_start == current_day && date_end == current_tomorrow) ||
-            date_end != current_tomorrow
-          )
-        "
-        >Create</v-btn
-      >
+      <v-btn color="primary" class="white--text" @click="createTrip" :disabled="
+        !location ||
+        !(
+          (date_start == current_day && date_end == current_tomorrow) ||
+          date_end != current_tomorrow
+        )
+      ">Create</v-btn>
     </v-row>
   </v-container>
 </template>
@@ -139,14 +101,12 @@ export default {
       let that = this
       let response = await this.$axios.get(
         'https://api.unsplash.com/search/photos/?client_id=' +
-          this.$config.unsplashID +
-          '&query=' +
-          this.location +
-          '&orientation=landscape'
+        this.$config.unsplashID +
+        '&query=' +
+        this.location +
+        '&orientation=landscape'
       )
-      console.log(response.data.results[0].urls.regular)
       let responseURL = response.data.results[0].urls.regular
-      console.log(responseURL)
 
       const data = {
         id: '',
@@ -157,7 +117,6 @@ export default {
         viewers: [],
         imageURL: responseURL,
       }
-      console.log('Sending trip:', data)
       this.$axios
         .post('http://localhost:8080/api/trips', data, {
           headers: {
@@ -166,15 +125,11 @@ export default {
         })
         .then(function (response) {
           that.$router.push('/trips')
-          console.log(response)
         })
         .catch(function (error) {
-          console.log(error)
+          console.error(error)
         })
     },
-  },
-  print() {
-    console.log('clicked')
   },
 }
 </script>

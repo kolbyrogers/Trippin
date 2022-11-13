@@ -44,14 +44,12 @@ export default {
     },
     getImages() {
       const that = this;
+      that.images = []
       const storageRef = this.$fire.storage.ref()
       const imageListRef = storageRef.child(this.$route.params.id + '/')
       imageListRef.listAll().then(function (res) {
-        console.log("rnning listAll");
         res.items.forEach(function (itemRef) {
-          console.log(itemRef.getDownloadURL());
           itemRef.getDownloadURL().then(function (res) {
-            console.log(res);
             that.images.push(res)
           })
         });
@@ -60,13 +58,9 @@ export default {
       });
     },
     uploadFile(file) {
-      const that = this;
-      that.images = []
       const storageRef = this.$fire.storage.ref()
       const fileRef = storageRef.child(this.$route.params.id + '/' + file.name)
       fileRef.put(file).then(() => {
-        console.log('Uploaded a file!')
-        const imageListRef = storageRef.child(this.$route.params.id + '/')
         this.getImages()
       })
     },
