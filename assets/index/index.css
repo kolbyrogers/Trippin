@@ -115,14 +115,17 @@
         top: 280px;
         transform: rotate(70deg);
     }
+
     30% {
         top: 305px;
         transform: rotate(50deg);
     }
+
     40% {
         top: 310px;
         transform: rotate(45deg);
     }
+
     70% {
         top: 275px;
         transform: rotate(25deg);
@@ -171,6 +174,7 @@
         top: 350px;
         transform: rotate(40deg);
     }
+
     70% {
         top: 225px;
         transform: rotate(25deg);
@@ -189,6 +193,11 @@ h1 {
     font-size: 50px;
     text-align: center;
     margin-bottom: 20px;
+}
+
+h2 {
+    font-family: "Tahoma";
+    font-size: 30px;
 }
 
 p {

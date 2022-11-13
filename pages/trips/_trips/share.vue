@@ -18,9 +18,6 @@
       </v-col>
       <v-col cols="4"></v-col>
     </v-row>
-    <v-row justify="center">
-      <v-checkbox label="Has Edit Access" v-model="can_edit"></v-checkbox>
-    </v-row>
     <v-row justify="center" class="pt-2">
       <v-btn color="primary" class="color--text" @click="shareTrip" :disabled="validEmail">Share</v-btn>
     </v-row>
@@ -40,9 +37,10 @@ export default {
   },
   methods: {
     shareTrip: async function () {
+      let that = this;
       const data = {
         email: this.email,
-        editor: this.can_edit,
+        editor: false,
       }
       console.log("Sending update:", data);
       this.$axios.put('http://localhost:8080/api/trips/' + this.$route.params.trips, data, {
@@ -51,10 +49,16 @@ export default {
         }
       })
         .then(function (response) {
-          console.log(response);
+          if (response.status == 200) {
+            that.goBack();
+          }
         })
         .catch(function (error) {
-          console.log(error);
+          that.$toast.show('Error sharing trip. Check the email and try again', {
+            // override the global option
+            type: 'error',
+            duration: 3000,
+          })
         });
     },
     goBack() {
