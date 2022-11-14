@@ -17,7 +17,6 @@ export default {
     },
     methods: {
         directToTrip(id) {
-            console.log("clicked trip", id);
             this.$router.push('/trips/' + id)
         },
     }

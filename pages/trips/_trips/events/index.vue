@@ -100,10 +100,10 @@ export default {
           this.name = ''
           this.location = ''
           this.time = ''
-          this.$router.go(-1)
         })
         .catch(function (error) {
         })
+      this.$router.go(-1)
     },
   },
 }
