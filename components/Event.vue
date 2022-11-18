@@ -9,9 +9,6 @@
                     <h2 class="font-italic">{{ event.location }}</h2>
                 </v-card-subtitle>
             </div>
-            <v-avatar justify="right" size="200" rounded="0">
-                <v-img :src="event.image"></v-img>
-            </v-avatar>
         </div>
     </v-card>
 </template>

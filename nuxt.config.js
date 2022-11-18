@@ -2,7 +2,7 @@ import colors from 'vuetify/es5/util/colors'
 
 export default {
   publicRuntimeConfig: {
-    unsplashID: process.env.UNSPLASH_CLIENT_ID
+    unsplashID: process.env.UNSPLASH_CLIENT_ID,
   },
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -43,6 +43,7 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
+    '@nuxtjs/toast',
     [
       '@nuxtjs/firebase',
       {
@@ -55,6 +56,7 @@ export default {
           appId: '1:949476544162:web:aa0701e58fd2df1de151fb',
         },
         services: {
+          storage: true,
           auth: {
             persistence: 'local', // default
             initialize: {
@@ -72,6 +74,10 @@ export default {
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
     baseURL: '/',
+  },
+
+  toast: {
+    position: 'top-center',
   },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify

@@ -1,6 +1,9 @@
 {
-  "name": "Trippin",
+  "name": "trippin",
   "version": "1.0.0",
+  "engines": {
+    "node": "6.11.1"
+  },
   "private": true,
   "scripts": {
     "dev": "nuxt",
@@ -15,6 +18,7 @@
     "@nuxtjs/auth": "^4.9.1",
     "@nuxtjs/axios": "^5.13.6",
     "@nuxtjs/firebase": "^8.2.2",
+    "@nuxtjs/toast": "^3.3.1",
     "core-js": "^3.19.3",
     "firebase": "^9.14.0",
     "nuxt": "^2.15.8",

@@ -98,6 +98,7 @@ export default {
       this.$router.go(-1)
     },
     createTrip: async function () {
+      let that = this
       let response = await this.$axios.get(
         'https://api.unsplash.com/search/photos/?client_id=' +
         this.$config.unsplashID +
@@ -105,9 +106,7 @@ export default {
         this.location +
         '&orientation=landscape'
       )
-      console.log(response.data.results[0].urls.regular);
       let responseURL = response.data.results[0].urls.regular
-      console.log(responseURL)
 
       const data = {
         id: '',
@@ -118,7 +117,6 @@ export default {
         viewers: [],
         imageURL: responseURL,
       }
-      console.log('Sending trip:', data)
       this.$axios
         .post('http://localhost:8080/api/trips', data, {
           headers: {
@@ -126,15 +124,12 @@ export default {
           },
         })
         .then(function (response) {
-          console.log(response)
+          that.$router.push('/trips')
         })
         .catch(function (error) {
-          console.log(error)
+          console.error(error)
         })
     },
-  },
-  print() {
-    console.log('clicked')
   },
 }
 </script>
