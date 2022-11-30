@@ -1,71 +1,108 @@
-# Trippin
+<div id="top"></div>
 
-- https://whimsical.com/trippin-EQeRyAme9pdSMm1K6VefMw
+<!-- PROJECT SHIELDS -->
 
-## Build Setup
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![MIT License][license-shield]][license-url]
 
-```bash
-# install dependencies
-$ npm install
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
 
-# serve with hot reload at localhost:3000
-$ npm run dev
+  <h3 align="center">Trippin</h3>
 
-# build for production and launch server
-$ npm run build
-$ npm run start
-$ go run backend/cmd/main.go
+  <p align="center">
+    An awesome full stack web app to plan trips, events, upload photos, and share with your friends!
+    <br />
+    <video width="90%" height="90%" controls>
+      <source src="./trippin-demo.mp4" type="video/mp4">
+    </video>
+    <br />
+    <a href="https://github.com/kolbyrogers/Trippin/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/kolbyrogers/Trippin/issues">Request Feature</a>
+  </p>
+</div>
 
-# generate static project
-$ npm run generate
-```
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
+    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#license">License</a></li>
+  </ol>
+</details>
 
-For detailed explanation on how things work, check out the [documentation](https://nuxtjs.org).
+<!-- ABOUT THE PROJECT -->
 
-## Special Directories
+## About The Project
 
-You can create the following extra directories, some of which have special behaviors. Only `pages` is required; you can delete them if you don't want to use their functionality.
+This full stack social media app allows users to create trips, add events to those trips, and upload photos to those events. Users can share their trips with friends and family, who can upload their own photos
 
-### `assets`
+Project features:
 
-The assets directory contains your uncompiled assets such as Stylus or Sass files, images, or fonts.
+- An interactive client interface
+- RESTful API
+- Client-side and server-side data validation
+- Data persistence
+- User authentication
+- User authorization
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/assets).
+<p align="right">(<a href="#top">back to top</a>)</p>
 
-### `components`
+### Built With
 
-The components directory contains your Vue.js components. Components make up the different parts of your page and can be reused and imported into your pages, layouts and even other components.
+- Go
+- Vue.js (Nuxt)
+- Firebase
+  - Authentication, Firestore, Storage
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/components).
+<p align="right">(<a href="#top">back to top</a>)</p>
 
-### `layouts`
+### Special Thanks
 
-Layouts are a great help when you want to change the look and feel of your Nuxt app, whether you want to include a sidebar or have distinct layouts for mobile and desktop.
+- Unsplash
+  - We used Unsplash's API to provide free stock photos for our users trips
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/layouts).
+<p align="right">(<a href="#top">back to top</a>)</p>
 
-### `pages`
+<!-- CONTRIBUTING -->
 
-This directory contains your application views and routes. Nuxt will read all the `*.vue` files inside this directory and setup Vue Router automatically.
+## Contributing
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/get-started/routing).
+Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
-### `plugins`
+If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
+Don't forget to give the project a star! Thanks again!
 
-The plugins directory contains JavaScript plugins that you want to run before instantiating the root Vue.js Application. This is the place to add Vue plugins and to inject functions or constants. Every time you need to use `Vue.use()`, you should create a file in `plugins/` and add its path to plugins in `nuxt.config.js`.
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/plugins).
+<p align="right">(<a href="#top">back to top</a>)</p>
 
-### `static`
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
-This directory contains your static files. Each file inside this directory is mapped to `/`.
-
-Example: `/static/robots.txt` is mapped as `/robots.txt`.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/static).
-
-### `store`
-
-This directory contains your Vuex store files. Creating a file in this directory automatically activates Vuex.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/store).
+[contributors-shield]: https://img.shields.io/github/contributors/kolbyrogers/Trippin.svg?style=for-the-badge
+[contributors-url]: https://github.com/kolbyrogers/Trippin/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/kolbyrogers/Trippin.svg?style=for-the-badge
+[forks-url]: https://github.com/kolbyrogers/Trippin/network/members
+[stars-shield]: https://img.shields.io/github/stars/kolbyrogers/Trippin.svg?style=for-the-badge
+[stars-url]: https://github.com/kolbyrogers/Trippin/stargazers
+[issues-shield]: https://img.shields.io/github/issues/kolbyrogers/Trippin.svg?style=for-the-badge
+[issues-url]: https://github.com/kolbyrogers/Trippin/issues
+[license-shield]: https://img.shields.io/github/license/kolbyrogers/Trippin.svg?style=for-the-badge
+[license-url]: https://github.com/kolbyrogers/Trippin/LICENSE.txt
