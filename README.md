@@ -21,6 +21,8 @@
       <source src="./trippin-demo.mp4" type="video/mp4">
     </video>
     <br />
+    <a href="./trippin-demo.mp4">View Demo</a>
+    ·
     <a href="https://github.com/kolbyrogers/Trippin/issues">Report Bug</a>
     ·
     <a href="https://github.com/kolbyrogers/Trippin/issues">Request Feature</a>
