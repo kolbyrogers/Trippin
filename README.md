@@ -17,7 +17,6 @@
   <p align="center">
     An awesome full stack web app to plan trips, events, upload photos, and share with your friends!
     <br />
-    <iframe width="1189" height="647" src="https://www.youtube.com/embed/UoFl1TpmPoM" title="Trippin' Demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     <br />
     <a href="https://youtu.be/UoFl1TpmPoM">View Demo</a>
     ·
