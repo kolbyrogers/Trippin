@@ -18,7 +18,7 @@
     An awesome full stack web app to plan trips, events, upload photos, and share with your friends!
     <br />
     <br />
-    <a href="https://youtu.be/UoFl1TpmPoM">View Demo</a>
+    <a href="https://youtu.be/UoFl1TpmPoM" target="_blank">View Demo</a>
     ·
     <a href="https://github.com/kolbyrogers/Trippin/issues">Report Bug</a>
     ·
