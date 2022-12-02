@@ -26,22 +26,6 @@
   </p>
 </div>
 
-<!-- TABLE OF CONTENTS -->
-<details>
-  <summary>Table of Contents</summary>
-  <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
-    </li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-  </ol>
-</details>
-
 <!-- ABOUT THE PROJECT -->
 
 ## About The Project
@@ -57,8 +41,6 @@ Project features:
 - User authentication
 - User authorization
 
-<p align="right">(<a href="#top">back to top</a>)</p>
-
 ### Built With
 
 - Go
@@ -66,14 +48,38 @@ Project features:
 - Firebase
   - Authentication, Firestore, Storage
 
-<p align="right">(<a href="#top">back to top</a>)</p>
-
 ### Special Thanks
 
 - Unsplash
   - We used Unsplash's API to provide free stock photos for our users trips
 
-<p align="right">(<a href="#top">back to top</a>)</p>
+<!-- SETUP -->
+
+## Setup
+
+### Clone Repo
+
+```sh
+git clone git@github.com:kolbyrogers/Trippin.git
+```
+
+### Install Dependencies
+
+```sh
+npm install
+```
+
+### Serve at localhost:3000
+
+```sh
+npm run dev
+```
+
+### Start Server
+
+```sh
+go run backend/cmd/main.go
+```
 
 <!-- CONTRIBUTING -->
 
